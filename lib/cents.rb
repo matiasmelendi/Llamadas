@@ -18,7 +18,7 @@ class Cents
   end
 
   def validate(value)
-    if value <= 0
+    if value < 0
       raise MontoInvalidoException.new
     end
   end
