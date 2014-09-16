@@ -1,9 +1,5 @@
-class RestriccionDiaria
+require '../lib/restriccion_de_facturacion'
 
-  attr_reader :costo
-
-  def initialize(costo_en_cents)
-    @costo=costo_en_cents
-  end
+class RestriccionDiaria < RestriccionDeFacturacion
 
 end
