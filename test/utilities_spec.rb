@@ -23,10 +23,33 @@ describe 'Funcionalidades extra a Numeric' do
     end
   end
 
-  context 'Al enviarle el mensaje to_cents a un numero' do
-    it 'Deberia retornar su valor en centavos' do
+  context 'Al enviarle el mensaje to_cents a un numero menor que cero' do
+    it 'No deberia poder transformarlo a centavos' do
       expect{-25.to_cents}.to raise_error(MontoInvalidoException)
     end
+  end
+
+  context 'Al enviarle el mensaje to_pesos a un numero menor que cero' do
+    it 'No deberia poder transformarlo a pesos' do
+      expect{-25.to_pesos}.to raise_error(MontoInvalidoException)
+    end
+  end
+
+  context 'Al enviarle el mensaje to_pesos a un numero entero' do
+    it 'Deberia retornar su valor en pesos' do
+      25.to_pesos.should equal(Peso.new(25))
+    end
+  end
+
+  context 'Al enviarle el mensaje to_pesos a un numero racional' do
+    it 'Deberia retornar su valor en pesos ' do
+      25.5.to_pesos.should be(Peso.new(25.5))
+    end
+
+    it 'Su valor en centavos deberia ser la cantidad de pesos por 100 mas la cantidad de centavos' do
+      (25.5.to_pesos).to_cents.should be(Cents.new(2550))
+    end
+
   end
 
 
