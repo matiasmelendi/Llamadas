@@ -8,7 +8,7 @@ class Hour
   end
 
   def validar(numero)
-    if(0 > numero && numero > 25)
+    unless(numero.between?(0,24))
       raise HoraInvalidaException.new
     end
   end
