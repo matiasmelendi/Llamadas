@@ -78,4 +78,15 @@ describe 'El comportamiento de las distintas facturaciones' do
     end
 
   end
+
+  context 'Realizando una llamada nacional' do
+    before() do
+      @llamada_nacional= LlamadaNacional.new()
+    end
+
+    it 'El costo por minuto deberia ser 30 centavos' do
+      @llamada_nacional.costo_por_minuto.should be(Cents.new(30))
+    end
+  end
+
 end
