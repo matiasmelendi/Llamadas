@@ -52,5 +52,32 @@ describe 'Funcionalidades extra a Numeric' do
 
   end
 
+  context 'Al enviarle el mensaje to_minutes a un numero' do
+    it 'Deberia retornar su valor en minutos' do
+      10.to_minutes.should be(Minute.new(10))
+    end
+  end
+
+  context 'Operando sobre un rango horario' do
+
+    before() do
+      @rango_horario= RangoHorario.new(10.to_hours,12.to_hours)
+    end
+
+    it 'Al consultar si un elemento pertenece al rango' do
+      @rango_horario.pertenece(11.to_hours).should be(true)
+    end
+
+    it 'Al crear un rango con hora inicial mayor a hora final' do
+      pending("Implementame")
+      expect{RangoHorario.new(12.to_hours,11.to_hours)}.to raise_error(RangoHorarioInvalidoException)
+    end
+
+    it 'Al crear un rango con una hora invalida' do
+      pending("Implementame")
+      expect{RangoHorario.new(20.to_hours,25.to_hours)}.to raise_error(HoraInvalidaException)
+    end
+
+  end
 
 end

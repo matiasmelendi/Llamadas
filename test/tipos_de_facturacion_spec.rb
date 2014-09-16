@@ -21,7 +21,7 @@ describe 'El comportamiento de las distintas facturaciones' do
     context 'Una restriccion por horario'  do
 
       it 'El costo deberia ser 10 centavos por minuto' do
-          @llamada_local.con_facturacion(RestriccionHoraria.new(8.to_hours,20.to_hours))
+          @llamada_local.con_facturacion(RestriccionHoraria.new(RangoHorario.new(8.to_hours,20.to_hours)))
           @llamada_local.costo_por_minuto.should be(10.to_cents)
       end
     end
@@ -37,8 +37,7 @@ describe 'El comportamiento de las distintas facturaciones' do
     context 'Una restriccion por horario y una restriccion por dia'  do
 
       it 'El costo deberia ser 20 centavos el minuto' do
-        @llamada_local.con_facturacion(RestriccionHoraria.new(8.to_hours,20.to_hours))
-        @llamada_local.con_facturacion(RestriccionDiasHabiles.new())
+        @llamada_local.con_facturacion(RestriccionDiaHabilEnHoraPico.new(RangoHorario.new(8.to_hours,20.to_hours)))
         @llamada_local.costo_por_minuto.should be(20.to_cents)
       end
     end
