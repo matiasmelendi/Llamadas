@@ -1,7 +1,7 @@
 require 'rspec'
-require '../lib/utilities'
-require '../lib/hora_invalida_exception'
-require '../lib/monto_invalido_exception'
+require '../lib/util/utilities'
+require '../lib/exceptions/hora_invalida_exception'
+require '../lib/exceptions/monto_invalido_exception'
 
 describe 'Funcionalidades extra a Numeric' do
 

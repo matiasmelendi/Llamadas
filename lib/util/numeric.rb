@@ -1,6 +1,6 @@
-require '../lib/hour'
-require '../lib/cents'
-require '../lib/peso'
+require '../lib/util/hour'
+require '../lib/util/cents'
+require '../lib/util/peso'
 
 class Numeric
 

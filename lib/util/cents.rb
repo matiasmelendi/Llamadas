@@ -1,5 +1,5 @@
-require '../lib/monto_invalido_exception'
-require '../lib/money'
+require '../lib/exceptions/monto_invalido_exception'
+require '../lib/util/money'
 
 class Cents < Money
 
