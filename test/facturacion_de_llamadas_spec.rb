@@ -1,4 +1,8 @@
 require 'rspec'
+require '../lib/compania_telefonica'
+require '../lib/cliente'
+require '../lib/util/duration'
+require '../lib/util/utilities'
 
 describe 'El comportamiento de una compania telefonica' do
 
@@ -6,8 +10,10 @@ describe 'El comportamiento de una compania telefonica' do
     before() do
       @compania_telefonica= CompaniaTelefonica.new
       @cliente_argentino= Cliente.new("Memo")
-      @compania_telefonica.agregar_cliente(@cliente)
-
+      @receptor_europeo= Cliente.new("EuroMemo")
+      @receptor_local= Cliente.new("LocalMemo")
+      @compania_telefonica.agregar_cliente(@cliente_argentino)
+      @compania_telefonica.agregar_cliente(@receptor_europeo)
     end
 
     it 'Si un cliente realiza dos llamadas en todo el mes, la factura mensual deberia cobrarle el valor de las llamadas + el costo fijo' do
