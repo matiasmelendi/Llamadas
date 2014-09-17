@@ -1,10 +1,10 @@
 class Hour
 
-  attr_reader :hora
+  attr_reader :value
 
   def initialize(numero)
     self.validar(numero)
-    @hora=numero
+    @value=numero
   end
 
   def validar(numero)
@@ -14,7 +14,11 @@ class Hour
   end
 
   def equal?(other_hour)
-    other_hour.hora.equal?(self.hora)
+    other_hour.value.equal?(self.value)
+  end
+
+  def >(other_hour)
+    self.value > other_hour.value
   end
 
 end

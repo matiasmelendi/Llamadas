@@ -2,6 +2,8 @@ require 'rspec'
 require '../lib/util/utilities'
 require '../lib/exceptions/hora_invalida_exception'
 require '../lib/exceptions/monto_invalido_exception'
+require '../lib/util/rango_horario'
+require '../lib/exceptions/rango_horario_invalido_exception'
 
 describe 'Funcionalidades extra a Numeric' do
 
@@ -69,12 +71,10 @@ describe 'Funcionalidades extra a Numeric' do
     end
 
     it 'Al crear un rango con hora inicial mayor a hora final' do
-      pending("Implementame")
       expect{RangoHorario.new(12.to_hours,11.to_hours)}.to raise_error(RangoHorarioInvalidoException)
     end
 
     it 'Al crear un rango con una hora invalida' do
-      pending("Implementame")
       expect{RangoHorario.new(20.to_hours,25.to_hours)}.to raise_error(HoraInvalidaException)
     end
 
