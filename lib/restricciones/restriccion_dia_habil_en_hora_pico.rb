@@ -1,4 +1,8 @@
 require '../lib/restricciones/restriccion_de_facturacion'
+require '../lib/restricciones/restriccion_dias_habiles'
+require '../lib/restricciones/restriccion_horaria'
+require '../lib/restricciones/restriccion_compuesta'
+
 class RestriccionDiaHabilEnHoraPico < RestriccionDeFacturacion
 
   attr_accessor :restriccion

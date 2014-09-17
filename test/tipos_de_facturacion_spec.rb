@@ -10,6 +10,9 @@ require '../lib/restricciones/llamando_a_europa'
 require '../lib/restricciones/llamando_a_sudamerica'
 require '../lib/restricciones/sin_restriccion_por_zona'
 require '../lib/llamada_nacional'
+require '../lib/util/rango_horario'
+require '../lib/restricciones/restriccion_dia_habil_en_hora_pico'
+
 
 describe 'El comportamiento de las distintas facturaciones' do
 
