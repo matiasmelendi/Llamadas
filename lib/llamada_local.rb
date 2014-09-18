@@ -7,7 +7,7 @@ class LlamadaLocal < Llamada
 
 
   def self.es_de_tipo(cod_area_e,cod_area_r)
-    cod_area_e.cod_local equal?(cod_area_r.cod_local)
+    cod_area_e.cod_local.equal?(cod_area_r.cod_local)
   end
 
 end

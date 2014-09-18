@@ -15,7 +15,7 @@ class GestorDeLlamadas
   end
 
   def monto_a_pagar_para(mesDelAño,cliente)
-    aplicar_restricciones(llamadas_del_cliente_en_el_mes(cliente,mesDelAño)).sum
+    aplicar_restricciones(llamadas_del_cliente_en_el_mes(cliente,mesDelAño)).inject(0.to_f) { |result,value | result +value}
   end
 
   def aplicar_restricciones(llamadas)

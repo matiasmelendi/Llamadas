@@ -1,4 +1,5 @@
 require '../lib/exceptions/llamada_no_reconocida_exception'
+require 'date'
 
 class Llamada
 
@@ -8,7 +9,7 @@ class Llamada
   attr_reader :duracion
 
   def initialize(emisor,duracion,receptor)
-    @fecha=Date today
+    @fecha=Date.today
     @emisor=emisor
     @receptor=receptor
     @duracion=duracion
@@ -26,6 +27,10 @@ class Llamada
     @fecha.to_time.hour.to_hours
   end
 
+  def duracion
+    duracion.value
+  end
+
 
 ##Decidir que tipo de llamada crear
   class << self
@@ -37,8 +42,8 @@ class Llamada
       [LlamadaInternacional,LlamadaLocal,LlamadaNacional]
     end
 
-    def nueva_llamada(emisor,receptor,duracion)
-      llamada=tipos_de_llamadas.detect([self.llamada_no_reconocida]){|tipo_de_llamada| tipo_de_llamada.es_de_tipo(emisor.cod_area,receptor.cod_area)}
+    def nueva_llamada(emisor,receptor,duracion) #([self.llamada_no_reconocida])
+      llamada=tipos_de_llamadas.detect{|tipo_de_llamada| tipo_de_llamada.es_de_tipo(emisor.cod_area, receptor.cod_area)}
       llamada.new(emisor,receptor,duracion)
     end
 
