@@ -8,4 +8,9 @@ class RestriccionHoraria < RestriccionDeFacturacion
   def costo
     10.to_cents
   end
+
+  def self.se_aplica_a(llamada)
+    @rango_horario.pertenece?(llamada.hora_de_llamada)
+  end
+
 end

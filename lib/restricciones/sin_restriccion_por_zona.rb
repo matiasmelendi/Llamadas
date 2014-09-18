@@ -5,4 +5,7 @@ class SinRestriccionPorZona < RestriccionPorZona
     1.50.to_pesos
   end
 
+  def self.se_aplica_a(llamada)
+    !condicion_de_aplicabilidad(llamada)
+  end
 end

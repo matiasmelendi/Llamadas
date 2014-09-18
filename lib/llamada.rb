@@ -1,18 +1,55 @@
+require '../lib/exceptions/llamada_no_reconocida_exception'
+
 class Llamada
 
-  attr_accessor :facturaciones
+  attr_accessor :fecha
+  attr_reader :emisor
+  attr_reader :receptor
+  attr_reader :duracion
 
-  def initialize
-    @facturaciones= []
+  def initialize(emisor,duracion,receptor)
+    @fecha=Date today
+    @emisor=emisor
+    @receptor=receptor
+    @duracion=duracion
   end
 
-  def costo_por_minuto
-    facturaciones.inject(0.to_cents){|costo,facturacion| costo + facturacion.costo }
+  def mes
+    @fecha.month
   end
 
-  def con_facturacion(facturacion)
-    self.facturaciones.push(facturacion)
+  def año
+    @fecha.year
   end
 
+  def hora_de_llamada
+    @fecha.to_time.hour.to_hours
+  end
+
+
+##Decidir que tipo de llamada crear
+  class << self
+    require '../lib/llamada_local'
+    require '../lib/llamada_nacional'
+    require '../lib/llamada_internacional'
+
+    def tipos_de_llamadas()
+      [LlamadaInternacional,LlamadaLocal,LlamadaNacional]
+    end
+
+    def nueva_llamada(emisor,receptor,duracion)
+      llamada=tipos_de_llamadas.detect([self.llamada_no_reconocida]){|tipo_de_llamada| tipo_de_llamada.es_de_tipo(emisor.cod_area,receptor.cod_area)}
+      llamada.new(emisor,receptor,duracion)
+    end
+
+    def es_de_tipo(cod_area_e,cod_area_r)
+      #SubclassResponsability
+    end
+
+    def llamada_no_reconocida
+      raise(LlamadaNoReconocidaException.new)
+    end
+
+  end
 
 end

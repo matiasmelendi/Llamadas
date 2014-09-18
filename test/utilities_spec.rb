@@ -67,7 +67,7 @@ describe 'Funcionalidades extra a Numeric' do
     end
 
     it 'Al consultar si un elemento pertenece al rango' do
-      @rango_horario.pertenece(11.to_hours).should be(true)
+      @rango_horario.pertenece?(11.to_hours).should be(true)
     end
 
     it 'Al crear un rango con hora inicial mayor a hora final' do

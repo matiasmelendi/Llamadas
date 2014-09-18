@@ -5,7 +5,7 @@ class RangoHorario
     @rango=Range.new(hora_inicial,hora_final)
   end
 
-  def pertenece(hora)
+  def pertenece?(hora)
    @rango.member?(hora)
   end
 

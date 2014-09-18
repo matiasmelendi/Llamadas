@@ -15,4 +15,8 @@ class RestriccionDiaHabilEnHoraPico < RestriccionDeFacturacion
     restriccion.costo
   end
 
+  def self.se_aplica_a(llamada)
+    restriccion.class.se_aplica_a(llamada)
+  end
+
 end
