@@ -2,7 +2,7 @@ class RangoHorario
 
   def initialize(hora_inicial,hora_final)
     self.validate(hora_inicial,hora_final)
-    @rango=Range.new(hora_inicial,hora_final)
+    @rango=hora_inicial..hora_final
   end
 
   def pertenece?(hora)

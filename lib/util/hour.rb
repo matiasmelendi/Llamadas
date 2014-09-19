@@ -1,4 +1,5 @@
 class Hour
+  include Comparable
 
   attr_reader :value
 
@@ -13,9 +14,22 @@ class Hour
     end
   end
 
-  def equal?(other_hour)
-    other_hour.value.equal?(self.value)
+  def succ
+    Hour.new(self.value + 1)
   end
+
+  def to_s
+    self.value.to_s + "hs"
+  end
+
+  def <=>(other_hour)
+    (self.value) <=>  other_hour.value
+  end
+
+  def equal?(other_hour)
+    (self.value).equal?(other_hour.value)
+  end
+
 
   def >(other_hour)
     self.value > other_hour.value
