@@ -18,11 +18,11 @@ class RestriccionDeFacturacion
     #SubclassResponsability
   end
 
-  def facturaciones_aplicadas(llamada)
-    tipos_de_facturacion.select{|facturacion| facturacion.se_aplica_a(llamada) }
+  def self.facturaciones_aplicadas(llamada)
+    print (tipos_de_facturacion.select{|facturacion| facturacion.se_aplica_a(llamada) })
   end
 
-  def costo_de_facturaciones(facturaciones)
+  def self.costo_de_facturaciones(facturaciones)
     facturaciones.inject(0.to_f) { |result,facturacion | result + facturacion.costo  }
   end
 

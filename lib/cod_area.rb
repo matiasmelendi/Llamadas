@@ -8,4 +8,8 @@ class CodArea
     @cod_nacional=cod_nacional
   end
 
+  def equal?(another_cod)
+    self.cod_local.eql?(another_cod.cod_local) &&
+    self.cod_nacional.eql?(another_cod.cod_nacional)
+  end
 end

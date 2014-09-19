@@ -9,15 +9,24 @@ require '../lib/llamada'
 
 describe 'El comportamiento de una compania telefonica' do
 
-  context 'Cuando genera la factura para un cliente en un determinado mes' do
-    before() do
-      @compania_telefonica= CompaniaTelefonica.new
-      @cliente_argentino= Cliente.new("Memo",CodArea.new(120,54))
-      @receptor_europeo= Cliente.new("EuroMemo",CodArea.new(1,101))
-      @receptor_local= Cliente.new("LocalMemo",CodArea.new(120,54))
-      @compania_telefonica.agregar_cliente(@cliente_argentino)
-      @compania_telefonica.agregar_cliente(@receptor_europeo)
+  before() do
+    @compania_telefonica= CompaniaTelefonica.new
+    @compania_telefonica.agregar_cliente("Memo",CodArea.new(120,54))
+    @compania_telefonica.agregar_cliente("EuroMemo",CodArea.new(1,101))
+    @compania_telefonica.agregar_cliente("LocalMemo",CodArea.new(120,54))
+    @cliente_argentino= @compania_telefonica.cliente_de_nombre("Memo")
+    @receptor_europeo= @compania_telefonica.cliente_de_nombre("EuroMemo")
+    @receptor_local= @compania_telefonica.cliente_de_nombre("LocalMemo")
+  end
+
+  context 'Cuando se realiza una llamada' do
+    it 'Deberia almacenarse la llamada realizada' do
+      @cliente_argentino.realizar_llamada(Duration.new(10.to_minutes),@receptor_europeo)
+      @compania_telefonica.registro_de_llamadas.llamadas.size.should equal(1)
     end
+  end
+
+  context 'Cuando genera la factura para un cliente en un determinado mes' do
 
     it 'Si un cliente realiza dos llamadas en todo el mes, la factura mensual deberia cobrarle el valor de las llamadas + el costo fijo' do
       @cliente_argentino.realizar_llamada(Duration.new(10.to_minutes),@receptor_europeo)

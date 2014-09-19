@@ -18,7 +18,9 @@ describe 'El comportamiento de las distintas facturaciones' do
 
   context 'Realizando una llamada local' do
     before() do
-      @llamada_local= LlamadaLocal.new(9.to_hours)
+      @receptor_europeo= Cliente.new("EuroMemo",CodArea.new(1,101))
+      @emisor_local= Cliente.new("LocalMemo",CodArea.new(120,54))
+      @llamada_local= LlamadaLocal.new(@emisor_local,@receptor_europeo,Duration.new(1.to_minutes))
     end
 
     context 'Una restriccion por horario'  do

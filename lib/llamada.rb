@@ -24,15 +24,13 @@ class Llamada
   end
 
   def hora_de_llamada
-    @fecha.to_time.hour.to_hours
+    @fecha.to_time
   end
 
   def duracion
     duracion.value
   end
 
-
-##Decidir que tipo de llamada crear
   class << self
     require '../lib/llamada_local'
     require '../lib/llamada_nacional'
@@ -42,8 +40,8 @@ class Llamada
       [LlamadaInternacional,LlamadaLocal,LlamadaNacional]
     end
 
-    def nueva_llamada(emisor,receptor,duracion) #([self.llamada_no_reconocida])
-      llamada=tipos_de_llamadas.detect{|tipo_de_llamada| tipo_de_llamada.es_de_tipo(emisor.cod_area, receptor.cod_area)}
+    def nueva_llamada(emisor,receptor,duracion)
+      llamada=tipos_de_llamadas.find{|tipo_de_llamada| tipo_de_llamada.es_de_tipo(emisor.cod_area, receptor.cod_area)}
       llamada.new(emisor,receptor,duracion)
     end
 
@@ -55,6 +53,9 @@ class Llamada
       raise(LlamadaNoReconocidaException.new)
     end
 
+    def to_s
+      #SubclassResponsability
+    end
   end
 
 end
