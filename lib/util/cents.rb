@@ -3,12 +3,32 @@ require '../lib/util/money'
 
 class Cents < Money
 
-  def +(a_cents)
-    (self.value + a_cents.value).to_cents
+  def +(another_kind_of_money)
+    another_kind_of_money.sum_with_cents(self)
   end
 
   def equal?(another_cent)
-    self.value.equal?(another_cent.value)
+    self.value==(another_cent.value)
+  end
+
+  def *(a_number)
+    (self.value * a_number).to_cents
+  end
+
+  def sum_with_peso(a_peso)
+    a_peso.sum_with_cents(self)
+  end
+
+  def sum_with_cents(a_cents)
+    (self.value + a_cents.value).to_cents
+  end
+
+  def to_cents
+    self
+  end
+
+  def to_pesos
+    (self.value/(100.0)).to_pesos
   end
 
 end
