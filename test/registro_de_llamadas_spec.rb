@@ -3,7 +3,7 @@ require '../lib/compania_telefonica'
 require '../lib/cod_area'
 require '../lib/cliente'
 require '../lib/util/numeric'
-require '../lib/util/mes_del_año'
+require '../lib/util/mes_del_anio'
 
 
 describe 'El comportamiento del registro de llamadas' do
@@ -26,13 +26,13 @@ describe 'El comportamiento del registro de llamadas' do
   context 'Si se desea saber las llamadas de un cliente' do
     it 'Deberia retornar una lista con las llamadas de ese cliente' do
       @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAño.septiembre(2014))
+      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAnio.septiembre(2014))
       llamadas.size.should be(1)
     end
 
     it 'Si no se realizaron llamadas, la lista de llamadas debe ser vacia' do
       @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAño.octubre(2014))
+      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAnio.octubre(2014))
       llamadas.size.should be(0)
     end
 
