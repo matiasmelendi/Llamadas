@@ -1,11 +1,12 @@
 require '../lib/registro_de_llamadas'
 require '../lib/facturador_de_llamadas'
-
+require '../lib/util/mes_del_anio'
 class CompaniaTelefonica
 
   attr_accessor :clientes
   attr_accessor :facturador_de_llamadas
   attr_accessor :registro_de_llamadas
+
   def initialize
     @clientes=[]
     @registro_de_llamadas=RegistroDeLlamadas.new
@@ -17,7 +18,7 @@ class CompaniaTelefonica
   end
 
   def cliente_de_nombre(nombre)
-    clientes.find{|cliente| nombre.eql?(cliente.nombre)}
+    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| nombre.eql?(cliente.nombre)}
   end
 
   def no_existe_el_cliente

@@ -10,8 +10,10 @@ class FacturadorDeLlamadas
     Factura.new(monto_a_pagar_para(mesDelAño,cliente))
   end
 
-  def monto_a_pagar_para(mesDelAño,cliente)#.inject(0.to_f) { |result,value | result + value}
-    aplicar_restricciones(registro.llamadas_del_cliente_en_el_mes(cliente,mesDelAño))
+  private
+
+  def monto_a_pagar_para(mesDelAño,cliente)
+    aplicar_restricciones(registro.llamadas_del_cliente_en_el_mes(cliente,mesDelAño)).inject(0.to_pesos) { |result,value | result + value}
   end
 
   def aplicar_restricciones(llamadas)

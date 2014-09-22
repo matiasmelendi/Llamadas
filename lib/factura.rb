@@ -5,11 +5,11 @@ class Factura
   end
 
   def impuesto_fijo
-    10.to_f
+    10.to_pesos
   end
 
   def monto_a_pagar
-    (@monto + impuesto_fijo).to_pesos
+    @monto + impuesto_fijo
   end
 
 end

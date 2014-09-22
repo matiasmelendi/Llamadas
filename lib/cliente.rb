@@ -1,6 +1,6 @@
 class Cliente
 
-  attr_reader :nombre
+  attr_accessor :nombre
   attr_accessor :compania
   attr_accessor :cod_area
 

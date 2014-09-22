@@ -11,7 +11,7 @@ class RegistroDeLlamadas
   end
 
   def nueva_llamada(emisor,receptor,duracion)
-    llamadas.push(Llamada.nueva_llamada(emisor,receptor,duracion))
+    llamadas.push(Llamada.new(emisor,receptor,duracion))
   end
 
 
