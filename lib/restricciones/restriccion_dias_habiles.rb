@@ -5,7 +5,7 @@ class RestriccionDiasHabiles < RestriccionDiaria
     10.to_cents
   end
 
-  def self.se_aplica_a(llamada)
+  def se_aplica_a(llamada)
     !condicion_de_aplicabilidad(llamada)
   end
 end

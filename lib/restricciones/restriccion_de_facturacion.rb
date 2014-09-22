@@ -1,17 +1,19 @@
+require '../lib/util/rango_horario'
+
+
 class RestriccionDeFacturacion
 
-  def initialize
-
+  def self.tipos_de_facturacion
+    [
+      LlamandoAEuropa.new,LlamandoANorteAmerica.new,LlamandoASudamerica.new,
+      RestriccionFinDeSemana.new,SinRestriccionPorZona.new,
+      RestriccionDiaHabilEnHoraPico.new(RangoHorario.new(8.to_hours,20.to_hours)),
+      LlamadaLocal.new,LlamadaNacional.new
+    ]
   end
 
   def costo
-    
-  end
-
-  def self.tipos_de_facturacion()
-    [LlamandoAEuropa,LlamandoANorteAmerica,LlamandoASudamerica,
-     RestriccionDiaHabilEnHoraPico,RestriccionDiasHabiles,RestriccionFinDeSemana,
-     RestriccionHoraria, SinRestriccionPorZona]
+    #SubclassResponsability
   end
 
   def se_aplica_a(llamada)
@@ -19,11 +21,11 @@ class RestriccionDeFacturacion
   end
 
   def self.facturaciones_aplicadas(llamada)
-    print (tipos_de_facturacion.select{|facturacion| facturacion.se_aplica_a(llamada) })
+    tipos_de_facturacion.select{|facturacion| facturacion.se_aplica_a(llamada)}
   end
 
   def self.costo_de_facturaciones(facturaciones)
-    facturaciones.inject(0.to_f) { |result,facturacion | result + facturacion.costo  }
+    facturaciones.inject(0.to_pesos) { |result,facturacion | result + facturacion.costo}
   end
 
   def self.costo_para(llamada)
