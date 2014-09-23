@@ -46,7 +46,8 @@ describe 'El comportamiento de una compania telefonica' do
       @cliente_argentino.realizar_llamada(Duration.new(10.to_minutes),@receptor_europeo)
       @cliente_argentino.realizar_llamada(Duration.new(1.to_minutes),@receptor_local)
       @factura=@compania_telefonica.facturar_mes(MesDelAnio.septiembre(2014),@cliente_argentino)
-      @factura.monto_a_pagar.should equal(17.10.to_pesos)
+      #0.20 por minuto hora pico y dia habil + 0.70 * 10 minutos a Europa + costo fijo
+      @factura.monto_a_pagar.should equal(17.20.to_pesos)
     end
   end
 end
