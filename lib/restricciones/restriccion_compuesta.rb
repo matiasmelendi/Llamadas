@@ -11,6 +11,6 @@ class RestriccionCompuesta
   end
 
   def se_aplica_a(llamada)
-    restricciones.inject(true) { |result,restriccion | result && restriccion.se_aplica_a(llamada)  }
+    restricciones.all? { |restriccion|  restriccion.se_aplica_a(llamada) }
   end
 end

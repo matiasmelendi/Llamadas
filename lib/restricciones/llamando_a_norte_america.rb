@@ -1,7 +1,7 @@
 require '../lib/restricciones/restriccion_por_zona'
 class LlamandoANorteAmerica < RestriccionPorZona
 
-  def cods
+  def country_codes
     [10,11,12,13,14]
   end
 

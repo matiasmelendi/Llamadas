@@ -2,7 +2,7 @@ require '../lib/restricciones/restriccion_por_zona'
 
 class LlamandoAEuropa < RestriccionPorZona
 
-  def cods
+  def country_codes
     [100,101,102,103,104]
   end
 

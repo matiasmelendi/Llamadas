@@ -5,7 +5,7 @@ class SinRestriccionPorZona < RestriccionPorZona
     1.50.to_pesos
   end
 
-  def cods
+  def country_codes
     []
   end
 
