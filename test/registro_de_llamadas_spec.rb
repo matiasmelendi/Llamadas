@@ -4,14 +4,15 @@ require '../lib/cod_area'
 require '../lib/cliente'
 require '../lib/util/numeric'
 require '../lib/util/mes_del_anio'
+require '../lib/linea_telefonica'
 
 
 describe 'El comportamiento del registro de llamadas' do
 
   before() do
     @compania_telefonica= CompaniaTelefonica.new
-    @compania_telefonica.agregar_cliente("Memo",CodArea.new(120,54))
-    @compania_telefonica.agregar_cliente("EuroMemo",CodArea.new(1,101))
+    @compania_telefonica.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
+    @compania_telefonica.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
     @cliente_argentino= @compania_telefonica.cliente_de_nombre("Memo")
     @receptor_europeo= @compania_telefonica.cliente_de_nombre("EuroMemo")
   end

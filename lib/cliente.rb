@@ -2,12 +2,16 @@ class Cliente
 
   attr_accessor :nombre
   attr_accessor :compania
-  attr_accessor :cod_area
+  attr_accessor :linea
 
-  def initialize(nombre,cod_area,compania)
+  def initialize(nombre,linea,compania)
     @nombre=nombre
-    @cod_area=cod_area
+    @linea=linea
     @compania=compania
+  end
+
+  def cod_area
+    linea.cod_area
   end
 
   def realizar_llamada(duracion, receptor)

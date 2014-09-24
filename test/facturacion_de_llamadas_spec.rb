@@ -15,14 +15,15 @@ require '../lib/restricciones/restriccion_fin_de_semana'
 require '../lib/restricciones/sin_restriccion_por_zona'
 require '../lib/restricciones/llamada_local'
 require '../lib/restricciones/llamada_nacional'
+require '../lib/linea_telefonica'
 
 describe 'El comportamiento de una compania telefonica' do
 
   before() do
     @compania_telefonica= CompaniaTelefonica.new
-    @compania_telefonica.agregar_cliente("Memo",CodArea.new(120,54))
-    @compania_telefonica.agregar_cliente("EuroMemo",CodArea.new(1,101))
-    @compania_telefonica.agregar_cliente("LocalMemo",CodArea.new(120,54))
+    @compania_telefonica.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
+    @compania_telefonica.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
+    @compania_telefonica.agregar_cliente("LocalMemo",LineaTelefonica.new(CodArea.new(120,54),1533333333))
     @cliente_argentino= @compania_telefonica.cliente_de_nombre("Memo")
     @receptor_europeo= @compania_telefonica.cliente_de_nombre("EuroMemo")
     @receptor_local= @compania_telefonica.cliente_de_nombre("LocalMemo")
