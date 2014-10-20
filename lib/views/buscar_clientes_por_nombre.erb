@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <body>
+        <div class="container">
+            <div align="justify"  class="panel panel-success">
+
+                <div class="panel-heading"> Datos de <%= @cliente.nombre %> </div>
+
+                <div class="panel-body">
+                    <ul>
+                        <li> Número: <%= @cliente.linea.numero %> </li>
+                        <li> Código de area local: <%= @cliente.linea.cod_area.cod_local %> </li>
+                        <li> Código de area nacional: <%= @cliente.linea.cod_area.cod_nacional %> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <body>
+
+        <div class="panel panel-success">
+
+            <div class="panel-heading" align="center">Bienvenidos!!</div>
+
+            <div>
+                <div class="panel panel-success" >
+                    <div class="panel-heading">Crear cliente</div>
+
+                    <div class="container">
+                        <div class="panel panel-success">
+
+                          <form action="/crear_cliente" method="post">
+
+                            <label>Nombre:</label><input type="text" class="form-control" name="nombre">
+
+                            <label>Cod local:</label><input type="text" class="form-control" name="cod_local"/>
+
+                            <label>Cod nacional:</label><input type="text" class="form-control" name="cod_nacional"/>
+
+                            <label>Número:</label><input type="text" class="form-control" name="nro"/>
+
+                            <button type="submit" class="btn btn-default" >Crear cliente</button>
+
+                          </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            <div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">Buscar cliente</div>
+                    <form action="/buscar_cliente" method="get">
+                        <input type="text" name="nombre" />
+                        <input type="submit" value="Buscar cliente" />
+                    </form>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </body>
+
+</html>

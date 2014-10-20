@@ -1,0 +1,43 @@
+require 'sinatra'
+require_relative 'compania_telefonica'
+require_relative 'linea_telefonica'
+require_relative 'cod_area'
+require_relative 'cliente'
+
+
+compania= CompaniaTelefonica.new
+
+compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
+compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
+
+def crear_cliente(compania,nombre,cod_local,cod_nacional,nro)
+  compania.agregar_cliente(nombre,LineaTelefonica.new(CodArea.new(cod_local,cod_nacional) ,nro))
+end
+
+
+get '/' do
+  erb :home
+end
+
+
+#Buscar número de clientes por nombre
+get '/buscar_cliente' do
+  #Reificar en un mensaje
+  @cliente= compania.clientes.find(lambda{redirect('/error_404')}) { |c| c.nombre.eql?(params[:nombre])}
+  erb :buscar_clientes_por_nombre
+end
+
+not_found do
+  status 404
+  erb :error_404
+end
+
+get '/error_404' do
+  status 404
+end
+
+
+post '/crear_cliente' do
+  crear_cliente(compania,params[:nombre],params[:cod_local],params[:cod_nacional],params[:nro])
+  erb :crear_cliente
+end
