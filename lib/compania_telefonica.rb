@@ -17,6 +17,10 @@ class CompaniaTelefonica
     clientes.push(Cliente.new(nombre,cod,self))
   end
 
+  def borrar_cliente(nombre)
+    clientes.delete_if{|cliente| cliente.nombre.eql?(nombre)}
+  end
+
   def cliente_de_nombre(nombre)
     clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| nombre.eql?(cliente.nombre)}
   end
