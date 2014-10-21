@@ -10,21 +10,32 @@ compania= CompaniaTelefonica.new
 compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
 
+@clientes=compania.clientes
+
 def crear_cliente(compania,nombre,cod_local,cod_nacional,nro)
   compania.agregar_cliente(nombre,LineaTelefonica.new(CodArea.new(cod_local,cod_nacional) ,nro))
 end
 
+def buscar_cliente(compania,nombre)
+  compania.clientes.find(lambda{redirect('/error_404')}) { |c| c.nombre.eql?(nombre)}
+end
+
+def borrar_cliente(compania,nombre)
+  compania.borrar_cliente(nombre)
+end
 
 get '/' do
   erb :home
 end
 
-
-#Buscar número de clientes por nombre
 get '/buscar_cliente' do
-  #Reificar en un mensaje
-  @cliente= compania.clientes.find(lambda{redirect('/error_404')}) { |c| c.nombre.eql?(params[:nombre])}
-  erb :buscar_clientes_por_nombre
+  @cliente= buscar_cliente(compania,params[:nombre])
+  erb :datos_del_cliente
+end
+
+delete '/borrar_cliente' do
+  borrar_cliente(compania,params[:nombre])
+  erb :borrar_cliente
 end
 
 not_found do
@@ -36,8 +47,21 @@ get '/error_404' do
   status 404
 end
 
+get '/cliente_creado' do
+  erb :cliente_creado
+end
+
+get '/linea_invalida' do
+  erb :linea_invalida
+end
 
 post '/crear_cliente' do
-  crear_cliente(compania,params[:nombre],params[:cod_local],params[:cod_nacional],params[:nro])
-  erb :crear_cliente
+  begin
+    crear_cliente(compania,params[:nombre],params[:cod_local],params[:cod_nacional],params[:nro])
+    erb :crear_cliente
+  rescue
+    erb :linea_invalida
+  end
+
 end
+
