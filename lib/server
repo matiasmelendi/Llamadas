@@ -21,19 +21,25 @@ def buscar_cliente(compania,nombre)
 end
 
 def borrar_cliente(compania,nombre)
-  compania.borrar_cliente(nombre)
+  compania.clientes.delete_if(lambda{redirect('/error_404')}) {|cliente| cliente.nombre.eql?(nombre)}
 end
 
 get '/' do
+  @clientes=compania.clientes
   erb :home
 end
 
-get '/buscar_cliente' do
+get '/buscar_cliente/' do
   @cliente= buscar_cliente(compania,params[:nombre])
   erb :datos_del_cliente
 end
 
-delete '/borrar_cliente' do
+get '/se_ha_eliminado_al_cliente' do
+    erb :se_ha_eliminado_al_cliente
+end
+
+#HACER FUNCIONAR
+delete '/borrar_cliente/:nombre' do
   borrar_cliente(compania,params[:nombre])
   erb :borrar_cliente
 end
@@ -59,8 +65,8 @@ post '/crear_cliente' do
   begin
     crear_cliente(compania,params[:nombre],params[:cod_local],params[:cod_nacional],params[:nro])
     erb :crear_cliente
-  rescue
-    erb :linea_invalida
+  rescue YaExisteElClienteException, LineaInvalidaException
+    erb :no_se_pudo_crear_el_cliente
   end
 
 end
