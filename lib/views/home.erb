@@ -7,20 +7,9 @@
 
             <h1 align="center">Bienvenidos!!</h1>
 
-            <div class="container" align="left">
-                <div class="panel panel-success" align="left" >
-                    <div class="panel-heading"> Todos los clientes </div>
-                    <div class="panel-body" >
-                        <div class="list-group"  >
-                          <% @clientes.collect{|cliente| %>
-                            <a href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> class="list-group-item">  <%= cliente.nombre %><br>  </a>
-                          <%  } %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="panel panel-success" align="left">
+            <!--panel izquierdo-->
+            <div class="container ">
+                <div class="panel panel-success">
                     <div class="panel-heading">Buscar cliente</div>
                     <div class="panel-body">
                         <form action="/buscar_cliente/" method="get">
@@ -29,10 +18,41 @@
                         </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel panel-success" align="justify">
-                    <div class="panel-heading">Crear cliente</div>
-                    <div class="panel-body">
+            <div class="container">
+                <div class="panel panel-success">
+                <div class="panel-heading"> Todos los clientes </div>
+                    <div class="panel-body" >
+                        <div class="list-group"  >
+                            <% @clientes.collect{|cliente| %>
+                                <a href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> class="list-group-item">  <%= cliente.nombre %><br>  </a>
+                            <%  } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--panel derecho-->
+            <div class="container">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Borrar un cliente</div>
+                    <div class="panel-body" >
+                        <form action="/borrar_cliente/" method="delete">
+                            <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
+                            <input type="submit" class="btn btn-success" value="Borrar cliente" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--panel centro-->
+            <div class="container">
+                <div class="panel panel-success ">
+                    <div class="panel-heading ">Crear cliente</div>
+                    <div class="panel-body ">
                         <form action="/crear_cliente" method="post">
                             Nombre:         <input type="text" class="form-control" name="nombre" placeholder="Ingrese un nombre" required >
                             Cod local:      <input type="number" class="form-control" min="0" name="cod_local" placeholder="Ingrese un código de area local"  required/>
@@ -42,22 +62,11 @@
                         </form>
                     </div>
                 </div>
-
-
-                <div class="panel panel-success" align="right">
-                    <div class="panel-heading">Borrar un cliente</div>
-                    <div class="panel-body" >
-                        <form action="/borrar_cliente/" method="delete">
-                            <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
-                            <input type="submit" class="btn btn-success" value="Borrar cliente" />
-                        </form>
-                    </div>
-
-                </div>
-
             </div>
 
+
         </div>
+
     </body>
 
 </html>
