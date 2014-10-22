@@ -8,12 +8,14 @@
 
                 <div class="panel-heading"> Datos de <%= @cliente.nombre %> </div>
 
-                <div class="panel-body">
+                <div class="panel-body" >
                     <ul>
                         <li> Número: <%= @cliente.linea.numero %> </li>
                         <li> Código de area local: <%= @cliente.linea.cod_area.cod_local %> </li>
                         <li> Código de area nacional: <%= @cliente.linea.cod_area.cod_nacional %> </li>
                     </ul>
+
+                    <a class="btn btn-default" href="/" role="button" > Volver a la página principal</a>
                 </div>
 
             </div>
