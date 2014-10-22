@@ -10,8 +10,6 @@ compania= CompaniaTelefonica.new
 compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
 
-@clientes=compania.clientes
-
 def crear_cliente(compania,nombre,cod_local,cod_nacional,nro)
   compania.agregar_cliente(nombre,LineaTelefonica.new(CodArea.new(cod_local,cod_nacional) ,nro))
 end
@@ -21,7 +19,7 @@ def buscar_cliente(compania,nombre)
 end
 
 def borrar_cliente(compania,nombre)
-  compania.clientes.delete_if(lambda{redirect('/error_404')}) {|cliente| cliente.nombre.eql?(nombre)}
+  compania.clientes.delete_if{|cliente| cliente.nombre.eql?(nombre)}
 end
 
 get '/' do
@@ -39,7 +37,7 @@ get '/se_ha_eliminado_al_cliente' do
 end
 
 #HACER FUNCIONAR
-delete '/borrar_cliente/:nombre' do
+post '/borrar_cliente/' do
   borrar_cliente(compania,params[:nombre])
   erb :borrar_cliente
 end
