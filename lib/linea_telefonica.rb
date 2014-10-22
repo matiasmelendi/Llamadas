@@ -7,11 +7,14 @@ class LineaTelefonica
   attr_accessor :numero
 
   def initialize(cod_area,numero_telefonico)
-    if(numero_telefonico.to_i < 999999999)
+    unless(es_numero_valido(numero_telefonico))
       raise LineaInvalidaException.new
     end
     @cod_area=cod_area
     @numero=numero_telefonico
   end
 
+  def es_numero_valido(numero_telefonico)
+    numero_telefonico.to_i >= 1000000000
+  end
 end

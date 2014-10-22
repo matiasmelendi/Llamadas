@@ -1,6 +1,8 @@
 require '../lib/registro_de_llamadas'
 require '../lib/facturador_de_llamadas'
 require '../lib/util/mes_del_anio'
+require '../lib/exceptions/ya_existe_el_cliente_exception'
+
 class CompaniaTelefonica
 
   attr_accessor :clientes
@@ -14,7 +16,14 @@ class CompaniaTelefonica
   end
 
   def agregar_cliente(nombre,cod)
+    if(existe_el_cliente?(nombre))
+       self.ya_existe_el_cliente
+    end
     clientes.push(Cliente.new(nombre,cod,self))
+  end
+
+  def existe_el_cliente?(nombre)
+    clientes.count{|cliente| nombre.eql?(cliente.nombre)} > 0
   end
 
   def borrar_cliente(nombre)
@@ -29,6 +38,9 @@ class CompaniaTelefonica
     raise Exception.new("No existe el cliente")
   end
 
+  def ya_existe_el_cliente
+      raise YaExisteElClienteException.new
+  end
 
   def facturar_mes(mesDelAño, cliente)
     @facturador_de_llamadas.facturar_mes(mesDelAño,cliente)
