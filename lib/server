@@ -11,8 +11,17 @@ compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),15111111
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
 
 get '/' do
-  @clientes=compania.clientes
   erb :home
+end
+
+get '/seccion_clientes' do
+  @clientes=compania.clientes
+  erb :home_clientes
+end
+
+get '/seccion_facturaciones' do
+
+  erb :home_facturaciones
 end
 
 get '/buscar_cliente/' do

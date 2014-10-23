@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <body>
+        <div class="panel panel-success">
+
+            <h1 align="center"> Sección clientes </h1>
+
+            <!--panel izquierdo-->
+            <div class="container ">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Buscar cliente</div>
+                    <div class="panel-body">
+                        <form action="/buscar_cliente/" method="get">
+                            <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
+                            <input type="submit" class="btn btn-success" value="Buscar cliente" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="panel panel-success">
+                <div class="panel-heading"> Todos los clientes </div>
+                    <div class="panel-body" >
+                        <div class="list-group"  >
+                            <% @clientes.each{|cliente| %>
+                                <a class="list-group-item" href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> >
+                                  <%= cliente.nombre %>
+                                </a>
+                            <%  } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--panel derecho-->
+            <div class="container">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Borrar un cliente</div>
+                    <div class="panel-body" >
+                        <form action="/borrar_cliente/" method="post">
+                            <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
+                            <input type="submit" class="btn btn-success" value="Borrar cliente" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--panel centro-->
+            <div class="container">
+                <div class="panel panel-success ">
+                    <div class="panel-heading ">Crear cliente</div>
+                    <div class="panel-body ">
+                        <form action="/crear_cliente/" method="post">
+                            Nombre:         <input type="text" class="form-control" name="nombre" placeholder="Ingrese un nombre" required >
+                            Cod local:      <input type="number" class="form-control" min="0" name="cod_local" placeholder="Ingrese un código de area local"  required/>
+                            Cod nacional:   <input type="number" class="form-control" min="0" name="cod_nacional" placeholder="Ingrese un código de area nacional" required />
+                            Número:         <input type="tel" maxlength="10" class="form-control" name="nro" placeholder="Ingrese un número telefónico" required/>
+                            <button type="submit" class="btn btn-success">Crear cliente</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </body>
+
+</html>
