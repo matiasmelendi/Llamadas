@@ -2,6 +2,7 @@ require '../lib/registro_de_llamadas'
 require '../lib/facturador_de_llamadas'
 require '../lib/util/mes_del_anio'
 require '../lib/exceptions/ya_existe_el_cliente_exception'
+require '../lib/exceptions/no_existe_el_cliente_exception'
 
 class CompaniaTelefonica
 
