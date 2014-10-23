@@ -42,10 +42,6 @@ get '/error_404' do
   status 404
 end
 
-get '/linea_invalida' do
-  erb :linea_invalida
-end
-
 post '/crear_cliente/' do
   begin
     compania.agregar_cliente(params[:nombre],LineaTelefonica.new(CodArea.new(params[:cod_local],params[:cod_nacional]) ,params[:nro]))
