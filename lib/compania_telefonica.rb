@@ -27,15 +27,18 @@ class CompaniaTelefonica
   end
 
   def borrar_cliente(nombre)
+    if(!existe_el_cliente?(nombre))
+      self.no_existe_el_cliente
+    end
     clientes.delete_if{|cliente| cliente.nombre.eql?(nombre)}
   end
 
   def cliente_de_nombre(nombre)
-    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| nombre.eql?(cliente.nombre)}
+    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| cliente.nombre.eql?(nombre)}
   end
 
   def no_existe_el_cliente
-    raise Exception.new("No existe el cliente")
+    raise NoExisteElClienteException.new
   end
 
   def ya_existe_el_cliente
