@@ -32,14 +32,10 @@ get '/buscar_cliente/' do
   erb :datos_del_cliente
 end
 
-get '/se_ha_eliminado_al_cliente' do
-    erb :se_ha_eliminado_al_cliente
-end
-
 #HACER FUNCIONAR
 post '/borrar_cliente/' do
   borrar_cliente(compania,params[:nombre])
-  erb :borrar_cliente
+  erb :se_ha_eliminado_al_cliente
 end
 
 not_found do
@@ -51,18 +47,14 @@ get '/error_404' do
   status 404
 end
 
-get '/cliente_creado' do
-  erb :cliente_creado
-end
-
 get '/linea_invalida' do
   erb :linea_invalida
 end
 
-post '/crear_cliente' do
+post '/crear_cliente/' do
   begin
     crear_cliente(compania,params[:nombre],params[:cod_local],params[:cod_nacional],params[:nro])
-    erb :crear_cliente
+    erb :cliente_creado
   rescue YaExisteElClienteException, LineaInvalidaException
     erb :no_se_pudo_crear_el_cliente
   end

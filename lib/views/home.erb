@@ -25,8 +25,13 @@
                 <div class="panel-heading"> Todos los clientes </div>
                     <div class="panel-body" >
                         <div class="list-group"  >
-                            <% @clientes.collect{|cliente| %>
-                                <a href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> class="list-group-item">  <%= cliente.nombre %><br>  </a>
+                            <% @clientes.each{|cliente| %>
+                                <a class="list-group-item" href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> >
+                                  <%= cliente.nombre %>
+                                  <!--<button class="btn btn-default" role="button" action=<%="/borrar_cliente/" + cliente.nombre %>  >-->
+                                    <!--<span class="glyphicon glyphicon-remove pull-right"/>-->
+                                  <!--</button>-->
+                                </a>
                             <%  } %>
                         </div>
                     </div>
@@ -53,7 +58,7 @@
                 <div class="panel panel-success ">
                     <div class="panel-heading ">Crear cliente</div>
                     <div class="panel-body ">
-                        <form action="/crear_cliente" method="post">
+                        <form action="/crear_cliente/" method="post">
                             Nombre:         <input type="text" class="form-control" name="nombre" placeholder="Ingrese un nombre" required >
                             Cod local:      <input type="number" class="form-control" min="0" name="cod_local" placeholder="Ingrese un código de area local"  required/>
                             Cod nacional:   <input type="number" class="form-control" min="0" name="cod_nacional" placeholder="Ingrese un código de area nacional" required />
