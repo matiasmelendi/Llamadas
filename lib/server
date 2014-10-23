@@ -20,7 +20,7 @@ get '/buscar_cliente/' do
     @cliente= compania.cliente_de_nombre(params[:nombre])
     erb :datos_del_cliente
   rescue
-    erb :error_404
+    redirect '/error_404'
   end
 end
 
@@ -29,7 +29,7 @@ post '/borrar_cliente/' do
     compania.borrar_cliente(params[:nombre])
     erb :se_ha_eliminado_al_cliente
   rescue
-    erb :error_404
+    redirect '/error_404'
   end
 end
 
