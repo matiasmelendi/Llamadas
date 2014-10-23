@@ -8,6 +8,17 @@
         <div class="panel-heading"> Facturación </div>
         <div class="panel-body" >
 
+          <!--Seleccionar meses corrientes--><!--Emitir factura-->
+            <form action="/facturar/" method="get">
+                <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
+
+                <% @meses_corrientes.each{ |mes_del_anio| %>
+                <input type="radio" name="mes" value=" <%= mes_del_anio.mes %>"><%= mes_del_anio.mes %><br>
+                <% } %>
+
+              <input type="submit" class="btn btn-success" value="Facturar" />
+            </form>
+
         </div>
     </div>
 
