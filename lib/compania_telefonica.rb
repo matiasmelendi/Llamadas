@@ -38,6 +38,10 @@ class CompaniaTelefonica
     clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| cliente.nombre.eql?(nombre)}
   end
 
+  def llamadas_del_cliente(nombre,mes_del_anho)
+    registro_de_llamadas.llamadas_del_cliente_en_el_mes(cliente_de_nombre(nombre),mes_del_anho)
+  end
+
   def no_existe_el_cliente
     raise NoExisteElClienteException.new
   end
