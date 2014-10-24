@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head> <title> Factura emitida </title> </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 <body>
@@ -7,8 +8,15 @@
     <div class="panel panel-success">
         <div class="panel-heading"> Tu factura ha sido emitida </div>
         <div class="panel-body">
-          Monto a pagar: <%= @factura.monto_a_pagar.value %>
+          Monto a pagar: <%= @factura.monto_a_pagar.value %> <br>
+          Detalle de llamadas :
+          <ul>
+            <% @compania.llamadas_del_cliente(@cliente.nombre,@mes_del_anho).each{ |llamada| %>
+                <li> A: <%=llamada.receptor.nombre%> Duración: <%= llamada.duracion_en_minutos.to_s + " minutos " %> Mes del año: <%= llamada.mes.to_s + "/" + llamada.año.to_s  %>  </li>
+            <% } %>
+          </ul>
         </div>
+        <a class="btn btn-default" role="button" href="/" > Volver a la página principal</a>
     </div>
 
 </body>
