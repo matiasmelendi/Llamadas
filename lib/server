@@ -3,16 +3,25 @@ require_relative 'compania_telefonica'
 require_relative 'linea_telefonica'
 require_relative 'cod_area'
 require_relative 'cliente'
-require '../lib/util/mes_del_anio'
-
+require '../lib/util/utilities'
 
 compania= CompaniaTelefonica.new
 compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
 
 def meses_corrientes
-  meses= (1..13).collect{|nro_mes| MesDelAnio.new(nro_mes,Date.new.year)}
-  meses.select{|mes_del_anio| mes_del_anio.mes >= Date.new.month }
+  @date= Date.today
+  anho= @date.year
+  mes= @date.month
+  meses= (1..13).collect{|nro_mes| MesDelAnio.new(anho,nro_mes)}
+  meses.select{|mes_del_anio| mes_del_anio.mes <= mes }
+end
+
+def mes_del_anho_actual
+  @date= Date.today
+  anho= @date.year
+  mes= @date.month
+  MesDelAnio.new(anho,mes)
 end
 
 get '/' do
@@ -27,14 +36,17 @@ end
 #Si logro hacer que @meses_corrientes tenga valores ya aparecerían
 #los radio con los meses a seleccionar en la vista
 get '/seccion_facturaciones' do
-  #@cliente= compania.cliente_de_nombre(params[:nombre])
   @meses_corrientes= meses_corrientes
   erb :home_facturaciones
 end
 
 get '/facturar/' do
+
   begin
-    #compania.facturar_mes(params[:mes],@cliente)
+    @date= Date.today
+    anho= @date.year
+    @compania= compania
+    @factura= compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@compania.cliente_de_nombre(params[:nombre]))
     erb :factura_emitida
   rescue
     redirect '/error_404'
@@ -43,7 +55,11 @@ end
 
 get '/buscar_cliente/' do
   begin
+    @mes_del_anho= mes_del_anho_actual
     @cliente= compania.cliente_de_nombre(params[:nombre])
+    compania.cliente_realizo_llamada_a(@cliente,@cliente,Duration.new(10))
+    @compania=compania
+
     erb :datos_del_cliente
   rescue
     redirect '/error_404'
