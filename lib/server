@@ -25,6 +25,8 @@ def mes_del_anho_actual
 end
 
 get '/' do
+  compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("Memo"),compania.cliente_de_nombre("EuroMemo"),Duration.new(10))
+  compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("EuroMemo"),compania.cliente_de_nombre("Memo"),Duration.new(10))
   erb :home
 end
 
@@ -57,7 +59,6 @@ get '/buscar_cliente/' do
   begin
     @mes_del_anho= mes_del_anho_actual
     @cliente= compania.cliente_de_nombre(params[:nombre])
-    compania.cliente_realizo_llamada_a(@cliente,@cliente,Duration.new(10))
     @compania=compania
 
     erb :datos_del_cliente
