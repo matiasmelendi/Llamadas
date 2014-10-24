@@ -8,6 +8,8 @@ require '../lib/util/utilities'
 compania= CompaniaTelefonica.new
 compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
+compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("Memo"),compania.cliente_de_nombre("EuroMemo"),Duration.new(10))
+compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("EuroMemo"),compania.cliente_de_nombre("Memo"),Duration.new(10))
 
 def meses_corrientes
   @date= Date.today
@@ -25,8 +27,6 @@ def mes_del_anho_actual
 end
 
 get '/' do
-  compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("Memo"),compania.cliente_de_nombre("EuroMemo"),Duration.new(10))
-  compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("EuroMemo"),compania.cliente_de_nombre("Memo"),Duration.new(10))
   erb :home
 end
 
@@ -35,8 +35,6 @@ get '/seccion_clientes' do
   erb :home_clientes
 end
 
-#Si logro hacer que @meses_corrientes tenga valores ya aparecerían
-#los radio con los meses a seleccionar en la vista
 get '/seccion_facturaciones' do
   @meses_corrientes= meses_corrientes
   erb :home_facturaciones
@@ -47,6 +45,8 @@ get '/facturar/' do
   begin
     @date= Date.today
     anho= @date.year
+    @mes_del_anho= mes_del_anho_actual
+    @cliente= compania.cliente_de_nombre(params[:nombre])
     @compania= compania
     @factura= compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@compania.cliente_de_nombre(params[:nombre]))
     erb :factura_emitida
