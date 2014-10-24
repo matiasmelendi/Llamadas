@@ -14,9 +14,14 @@
                         <li> Código de area local: <%= @cliente.linea.cod_area.cod_local %> </li>
                         <li> Código de area nacional: <%= @cliente.linea.cod_area.cod_nacional %> </li>
                     </ul>
+                    <ul> Llamadas
+                        <% @compania.llamadas_del_cliente(@cliente.nombre,@mes_del_anho).each{ |llamada| %>
+                            <li> A: <%=llamada.receptor.nombre%> Duración: <%= llamada.duracion_en_minutos.to_s %> </li>
+                        <% } %>
+                    </ul>
+                    <a class="btn btn-default" role="button" href="/" > Volver a la página principal</a>
 
-                    <a class="btn btn-default" href="/" role="button" > Volver a la página principal</a>
-                    <a class="btn btn-default" href="/seccion_facturaciones" role="button" > Facturar </a>
+                    <a class="btn btn-default" role="button" href=<%="/facturar/?mes=" + @mes_del_anho.mes.to_s + "&nombre=" + @cliente.nombre %> > Facturar </a>
                 </div>
 
             </div>
