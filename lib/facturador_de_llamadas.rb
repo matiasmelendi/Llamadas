@@ -1,3 +1,4 @@
+
 class FacturadorDeLlamadas
 
   attr_reader :registro
