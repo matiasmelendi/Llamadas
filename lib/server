@@ -4,12 +4,14 @@ require_relative 'linea_telefonica'
 require_relative 'cod_area'
 require_relative 'cliente'
 require '../lib/util/utilities'
+require 'json'
 
 compania= CompaniaTelefonica.new
 compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
 compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
 compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("Memo"),compania.cliente_de_nombre("EuroMemo"),Duration.new(10))
 compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("EuroMemo"),compania.cliente_de_nombre("Memo"),Duration.new(10))
+
 
 def meses_corrientes
   @date= Date.today
@@ -70,9 +72,11 @@ end
 post '/borrar_cliente/' do
   begin
     compania.borrar_cliente(params[:nombre])
-    erb :se_ha_eliminado_al_cliente
+    status 200
+    #erb :home_clientes
   rescue
-    redirect '/error_404'
+    status 404
+    #redirect '/error_404'
   end
 end
 
@@ -94,4 +98,5 @@ post '/crear_cliente/' do
   end
 
 end
+
 
