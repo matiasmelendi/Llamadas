@@ -2,7 +2,27 @@
 <html>
 <head> <title> Clientes </title> </head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <head>
+      <script>
+          xhrObject= new XMLHttpRequest();
+          xhrObject.onreadystatechange=function(){
+              if (xhrObject.readyState == 4 && xhrObject.status == 404) {
+                  alert("Error 404");
+              } else {
+                  alert("El cliente ha sido eliminado!");
+              }
+          };
 
+          function borrar(nombre){
+
+              xhrObject.open('POST', '/borrar_cliente/?nombre=', true);
+              xhrObject.send(nombre);
+
+          }
+
+      </script>
+
+    </head>
     <body>
         <div class="panel panel-success">
 
@@ -41,10 +61,10 @@
             <div class="container">
                 <div class="panel panel-success">
                     <div class="panel-heading">Borrar un cliente</div>
-                    <div class="panel-body" >
-                        <form action="/borrar_cliente/" method="post">
+                    <div class="panel-body" id="ajax" >
+                        <form class="in-line" action="/borrar_cliente/" method="post">
                             <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
-                            <input type="submit" class="btn btn-success" value="Borrar cliente" />
+                            <input type="submit" class="btn btn-success" onclick="borrar(nombre)" value="Borrar cliente" />
                         </form>
                     </div>
                 </div>
