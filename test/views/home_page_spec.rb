@@ -31,6 +31,11 @@ class HomePageTest < Test::Unit::TestCase
             expect(last_response.body).to include("Página de inicio")
           end
 
+          it 'should return an exception because this page don´t redirect another page' do
+            get '/'
+            expect(follow_redirect!).to raise_error(Error, "Last response was not a redirect. Cannot follow_redirect!")
+          end
+
         end
 
       end
