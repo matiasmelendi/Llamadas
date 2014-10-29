@@ -20,20 +20,16 @@ class HomePageTest < Test::Unit::TestCase
           Sinatra::Application
         end
 
-        describe 'The behavior of homepage' do
-          it 'should be ok' do
+        it 'should be ok' do
             get '/'
             expect(last_response).to be_ok
-          end
+        end
 
-          it ' the page´s body should contains "Página de inicio" ' do
+        it ' the page´s body should contains "Página de inicio" ' do
             get '/'
             expect(last_response.body).to include("Página de inicio")
-          end
-
         end
 
       end
-
 
 end
