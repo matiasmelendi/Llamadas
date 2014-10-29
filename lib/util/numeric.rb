@@ -1,7 +1,7 @@
-require '../lib/util/hour'
-require '../lib/util/cents'
-require '../lib/util/peso'
-require '../lib/util/minute'
+require_relative 'hour'
+require_relative 'cents'
+require_relative 'peso'
+require_relative 'minute'
 
 class Numeric
 

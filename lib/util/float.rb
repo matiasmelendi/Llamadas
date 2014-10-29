@@ -1,5 +1,5 @@
-require '../lib/util/cents'
-require '../lib/util/peso'
+require_relative 'cents'
+require_relative 'peso'
 
 class Float
 

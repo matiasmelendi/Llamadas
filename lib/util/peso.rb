@@ -1,4 +1,4 @@
-require '../lib/util/money'
+
 class Peso < Money
 
   def initialize(value)
