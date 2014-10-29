@@ -1,9 +1,9 @@
-require 'sinatra'
 require_relative 'compania_telefonica'
 require_relative 'linea_telefonica'
 require_relative 'cod_area'
 require_relative 'cliente'
-require '../lib/util/utilities'
+require '../../lib/util/utilities'
+require 'sinatra'
 require 'json'
 
 compania= CompaniaTelefonica.new
