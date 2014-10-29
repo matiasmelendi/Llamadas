@@ -3,7 +3,6 @@ require '../../lib/util/duration'
 require '../../lib/compania_telefonica'
 require '../../lib/linea_telefonica'
 require '../../lib/server'
-require 'test/unit'
 
 class HomePageTest < Test::Unit::TestCase
       include Rack::Test::Methods
