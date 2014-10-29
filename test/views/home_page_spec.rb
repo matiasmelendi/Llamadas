@@ -2,33 +2,38 @@ require '../spec_helper'
 require '../../lib/util/duration'
 require '../../lib/compania_telefonica'
 require '../../lib/linea_telefonica'
+require '../../lib/server'
+require 'test/unit'
 
-describe 'The behaviour of homepage' do
+class HomePageTest < Test::Unit::TestCase
+      include Rack::Test::Methods
 
-  RSpec.configure do |config|
-    config.tty = true
-    config.formatter = :documentation
-    config.include Rack::Test::Methods
-  end
+      describe 'The behaviour of homepage' do
 
-  def app
-   #debería poner al que le voy a consultar, pero el server no es una clase!
-   #NO puede ser instanciada
-  end
+        RSpec.configure do |config|
+          config.tty = true
+          config.formatter = :documentation
+          config.include Rack::Test::Methods
+        end
 
-  describe 'The behavior of homepage' do
-    it 'should be ok' do
-      get '/'
-      expect(last_request).to be(200)
-    end
+        def app
+          Sinatra::Application
+        end
 
-    it ' the page´s body should contains "Página de inicio" ' do
-      get '/'
-      expect(last_response.body).to include("Página de inicio")
-    end
+        describe 'The behavior of homepage' do
+          it 'should be ok' do
+            get '/'
+            expect(last_response).to be_ok
+          end
 
+          it ' the page´s body should contains "Página de inicio" ' do
+            get '/'
+            expect(last_response.body).to include("Página de inicio")
+          end
 
-  end
+        end
+
+      end
 
 
 end
