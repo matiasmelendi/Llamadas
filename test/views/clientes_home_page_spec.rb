@@ -27,6 +27,11 @@ class ClientesHomePage < Test::Unit::TestCase
         expect(last_response).to be_ok
       end
 
+      it 'should contains "Sección clientes" in the page´s body ' do
+        get '/seccion_clientes'
+        expect(last_response.body).to include("Sección clientes")
+      end
+
     end
   end
 
