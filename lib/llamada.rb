@@ -1,4 +1,4 @@
-require '../lib/exceptions/llamada_no_reconocida_exception'
+require '../../lib/exceptions/llamada_no_reconocida_exception'
 require 'date'
 
 class Llamada

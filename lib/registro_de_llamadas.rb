@@ -1,6 +1,6 @@
-require '../lib/llamada'
-require '../lib/restricciones/restriccion_de_facturacion'
-require '../lib/factura'
+require_relative 'llamada'
+require_relative 'factura'
+require '../../lib/restricciones/restriccion_de_facturacion'
 
 class RegistroDeLlamadas
 

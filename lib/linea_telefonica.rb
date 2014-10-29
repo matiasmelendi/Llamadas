@@ -1,5 +1,5 @@
-require '../lib/cod_area'
-require '../lib/exceptions/linea_invalida_exception'
+require_relative 'cod_area'
+require '../../lib/exceptions/linea_invalida_exception'
 
 class LineaTelefonica
 

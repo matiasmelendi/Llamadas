@@ -1,4 +1,4 @@
-require '../lib/util/rango_horario'
+require '../../lib/util/rango_horario'
 
 
 class RestriccionDeFacturacion
