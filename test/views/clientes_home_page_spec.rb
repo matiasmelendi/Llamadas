@@ -1,9 +1,33 @@
-require 'rspec'
+require '../spec_helper'
+require '../../lib/util/duration'
+require '../../lib/compania_telefonica'
+require '../../lib/linea_telefonica'
+require '../../lib/server'
 
-describe 'The behaviour of clientes home page' do
 
-  it 'should do something' do
+class ClientesHomePage < Test::Unit::TestCase
+          include Rack::Test::Methods
 
-    true.should == false
+  describe 'The behaviour of clientes home page' do
+
+    RSpec.configure do |config|
+      config.tty = true
+      config.formatter = :documentation
+      config.include Rack::Test::Methods
+    end
+
+    def app
+      Sinatra::Application
+    end
+
+    describe 'The behaviour of homepage' do
+
+      it 'should be ok' do
+        get '/seccion_clientes'
+        expect(last_response).to be_ok
+      end
+
+    end
   end
+
 end
