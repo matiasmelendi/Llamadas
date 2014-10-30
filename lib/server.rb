@@ -2,7 +2,7 @@ require_relative 'compania_telefonica'
 require_relative 'linea_telefonica'
 require_relative 'cod_area'
 require_relative 'cliente'
-require '../../lib/util/utilities'
+require_relative 'util/utilities'
 require 'sinatra'
 require 'json'
 
@@ -64,7 +64,7 @@ get '/buscar_cliente/' do
     @compania=compania
 
     erb :datos_del_cliente
-  rescue
+  rescue NoExisteElClienteException
     redirect '/error_404'
   end
 end
@@ -72,11 +72,10 @@ end
 post '/borrar_cliente/' do
   begin
     compania.borrar_cliente(params[:nombre])
-    status 200
-    #erb :home_clientes
-  rescue
-    status 404
-    #redirect '/error_404'
+
+    erb :home_clientes
+  rescue NoExisteElClienteException
+    redirect '/error_404'
   end
 end
 
