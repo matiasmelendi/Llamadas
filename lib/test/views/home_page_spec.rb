@@ -1,19 +1,9 @@
-require '../spec_helper'
-require '../../lib/util/duration'
-require '../../lib/compania_telefonica'
-require '../../lib/linea_telefonica'
-require '../../lib/server'
+require_relative '../spec_helper'
+require '../../util/duration'
+require '../../compania_telefonica'
+require '../../linea_telefonica'
+require '../../server'
 
-class HomePageTest < Test::Unit::TestCase
-      include Rack::Test::Methods
-
-      describe 'The behaviour of homepage' do
-
-        RSpec.configure do |config|
-          config.tty = true
-          config.formatter = :documentation
-          config.include Rack::Test::Methods
-        end
 
         def app
           Sinatra::Application
@@ -36,8 +26,3 @@ class HomePageTest < Test::Unit::TestCase
           end
 
         end
-
-      end
-
-
-end
