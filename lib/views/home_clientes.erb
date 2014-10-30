@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html>
-<head> <title> Clientes </title> </head>
+<html >
+<head>
+    <title> Clientes </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <head>
+    <script rel="JQuery" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+
       <script>
-          xhrObject= new XMLHttpRequest();
-          xhrObject.onreadystatechange=function(){
-              if (xhrObject.readyState == 4 && xhrObject.status == 404) {
-                  alert("Error 404");
-              } else {
-                  alert("El cliente ha sido eliminado!");
-              }
+          $.borrarCliente= function (nombre){
+              $.ajax('POST', '/borrar_cliente/?nombre=', true,
+                      function () {
+                          $.clientes=<%= @clientes.reject { |c| c.nombre.eql?( nombre ) } %>
+
+                      });
+              $.send(nombre);
+
           };
 
-          function borrar(nombre){
+          $.buscarCliente= function (nombre){
 
-              xhrObject.open('POST', '/borrar_cliente/?nombre=', true);
-              xhrObject.send(nombre);
-
-          }
+              $.open('GET','/buscar_cliente/?nombre=', true);
+              $.send(nombre);
+          };
 
       </script>
+</head>
 
-    </head>
     <body>
         <div class="panel panel-success">
 
@@ -35,7 +38,7 @@
                     <div class="panel-body">
                         <form action="/buscar_cliente/" method="get">
                             <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
-                            <input type="submit" class="btn btn-success" value="Buscar cliente" />
+                            <input type="submit" class="btn btn-success" onclick="$.borrarCliente(nombre)" value="Buscar cliente" />
                         </form>
                     </div>
                 </div>
@@ -44,14 +47,22 @@
             <div class="container">
                 <div class="panel panel-success">
                 <div class="panel-heading"> Todos los clientes </div>
+
                     <div class="panel-body" >
-                        <div class="list-group"  >
-                            <% @clientes.each{|cliente| %>
-                                <a class="list-group-item" href=<%="/buscar_cliente/?nombre=" + cliente.nombre %> >
-                                  <%= cliente.nombre %>
-                                </a>
-                            <%  } %>
-                        </div>
+                      <ul >
+                            <li ng-repeat="cliente $.clientes">
+                              <div class="btn-group btn-group">
+                                <div class="btn-group ">
+                                  <button type="button" class="btn btn-default" onclick="$.buscarCliente(cliente.nombre)">{{cliente.nombre}}</button>
+                                </div>
+                                <div class="btn-group ">
+                                  <button type="button" class="btn btn-default pull-right" onclick="$.borrarCliente(cliente.nombre)">
+                                    <div class="glyphicon glyphicon-remove" />
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                      </ul>
                     </div>
                 </div>
             </div>
@@ -64,7 +75,7 @@
                     <div class="panel-body" id="ajax" >
                         <form class="in-line" action="/borrar_cliente/" method="post">
                             <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
-                            <input type="submit" class="btn btn-success" onclick="borrar(nombre)" value="Borrar cliente" />
+                            <input type="submit" class="btn btn-success" value="Borrar cliente" />
                         </form>
                     </div>
                 </div>
