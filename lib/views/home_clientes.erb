@@ -1,32 +1,15 @@
 <!DOCTYPE html>
-<html >
+<html ng-app="app">
 <head>
     <title> Clientes </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script rel="JQuery" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="//llamadas/lib/app/angular-1.2.26/angular.min.js"></script>
+    <script src="//llamadas/lib/app/js/controllers.js"></script>
 
-      <script>
-          $.borrarCliente= function (nombre){
-              $.ajax('POST', '/borrar_cliente/?nombre=', true,
-                      function () {
-                          $.clientes=<%= @clientes.reject { |c| c.nombre.eql?( nombre ) } %>
-
-                      });
-              $.send(nombre);
-
-          };
-
-          $.buscarCliente= function (nombre){
-
-              $.open('GET','/buscar_cliente/?nombre=', true);
-              $.send(nombre);
-          };
-
-      </script>
 </head>
 
-    <body>
+    <body ng-controller="controller">
         <div class="panel panel-success">
 
             <h1 align="center"> Sección clientes </h1>
@@ -37,8 +20,10 @@
                     <div class="panel-heading">Buscar cliente</div>
                     <div class="panel-body">
                         <form action="/buscar_cliente/" method="get">
-                            <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
-                            <input type="submit" class="btn btn-success" onclick="$.borrarCliente(nombre)" value="Buscar cliente" />
+                            <input ng-model="query">
+                            <!---->
+                            <!--<input type="text" name="nombre" placeholder="Ingrese un nombre" required/>-->
+                            <!--<input type="submit" class="btn btn-success" onclick="$scope.buscarCliente(nombre)" value="Buscar cliente" />-->
                         </form>
                     </div>
                 </div>
@@ -47,17 +32,15 @@
             <div class="container">
                 <div class="panel panel-success">
                 <div class="panel-heading"> Todos los clientes </div>
-
-                    <div class="panel-body" >
                       <ul >
-                            <li ng-repeat="cliente $.clientes">
+                            <li ng-repeat="cliente in $scope.clientes | filter:query">
                               <div class="btn-group btn-group">
                                 <div class="btn-group ">
-                                  <button type="button" class="btn btn-default" onclick="$.buscarCliente(cliente.nombre)">{{cliente.nombre}}</button>
+                                  <button type="button" class="btn btn-default" onclick="buscarCliente(cliente.nombre)">{{cliente.nombre}}</button>
                                 </div>
                                 <div class="btn-group ">
-                                  <button type="button" class="btn btn-default pull-right" onclick="$.borrarCliente(cliente.nombre)">
-                                    <div class="glyphicon glyphicon-remove" />
+                                  <button type="button" class="btn btn-default pull-right" onclick="borrarCliente(cliente.nombre)">
+                                    <div class="glyphicon glyphicon-remove" ></div>
                                   </button>
                                 </div>
                               </div>
