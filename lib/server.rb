@@ -1,5 +1,5 @@
 require_relative 'dummy_initialize'
-require 'app/js/controllers.js'
+#require 'app/js/controllers.js'
 require 'sinatra'
 require 'json'
 
@@ -49,8 +49,7 @@ end
 post '/borrar_cliente/' do
   begin
     dummy.compania.borrar_cliente(params[:nombre])
-
-    erb :home_clientes
+    redirect 'seccion_clientes'
   rescue NoExisteElClienteException
     redirect '/error_404'
   end
@@ -65,14 +64,13 @@ get '/error_404' do
   status 404
 end
 
-post '/crear_cliente/' do
-  begin
+post '/seccion_clientes/crear_cliente/' do
+   begin
     dummy.compania.agregar_cliente(params[:nombre],LineaTelefonica.new(CodArea.new(params[:cod_local],params[:cod_nacional]) ,params[:nro]))
-    erb :cliente_creado
-  rescue YaExisteElClienteException, LineaInvalidaException
-    erb :no_se_pudo_crear_el_cliente
-  end
+    redirect '/seccion_clientes'
+   rescue YaExisteElClienteException, LineaInvalidaException
+     erb :no_se_pudo_crear_el_cliente
+   end
 
 end
-
 
