@@ -1,0 +1,35 @@
+<html>
+    <head>
+            <title>Clientes</title>
+        <script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-1.11.0.min.js">
+//            $('#buscar').click(function () {
+//                var $nombre= $('a').attr('id');
+//                window.location.replace('/seccion_clientes/buscar_cliente/?id=' + $nombre);
+//            });
+
+            $('#borrar').click(function () {
+                var $nombre= $('a').attr('id');
+                $.post('/seccion_clientes/borrar_cliente/?id=' + $nombre).done(function(data) {
+                    $('#clientes').html(data);
+                    alert("Se ha eliminado a " + $nombre);
+                });
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <ul id="clientes">
+          <% @clientes.each { |cliente|  %>
+              <li>
+                <div>
+                  <a id='buscar' href="/seccion_clientes/buscar_cliente/?id=<%=cliente.id %>" > <%=cliente.nombre %></a>
+                  <a id="borrar">
+                    <div class="glyphicon glyphicon-remove" />
+                  </a>
+                </div>
+              </li>
+          <% } %>
+        </ul>
+    </body>
+</html>
