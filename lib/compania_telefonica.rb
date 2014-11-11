@@ -27,15 +27,19 @@ class CompaniaTelefonica
     @id_cliente+=1
   end
 
-  def existe_el_cliente?(nombre)
-    clientes.count{|cliente| nombre.eql?(cliente.nombre)} > 0
+  def existe_el_cliente?(id)
+    clientes.count{|cliente| id.eql?(cliente.id)} > 0
   end
 
-  def borrar_cliente(nombre)
-    if(!existe_el_cliente?(nombre))
+  def borrar_cliente(id)
+    if(!existe_el_cliente?(id))
       self.no_existe_el_cliente
     end
-    clientes.delete_if{|cliente| cliente.nombre.eql?(nombre)}
+    clientes.delete_if{|cliente| cliente.id.eql?(id)}
+  end
+
+  def cliente_con_id(id)
+    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| cliente.id.equal?(id)}
   end
 
   def cliente_de_nombre(nombre)
