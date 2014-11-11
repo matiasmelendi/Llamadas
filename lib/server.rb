@@ -19,25 +19,25 @@ get '/seccion_facturaciones' do
   erb :home_facturaciones
 end
 
-get '/facturar/' do
+get '/seccion_facturaciones/facturar/' do
 
   begin
     @date= Date.today
     anho= @date.year
     @mes_del_anho= dummy.mes_del_anho_actual
-    @cliente= dummy.compania.cliente_de_nombre(params[:nombre])
+    @cliente= dummy.compania.cliente_con_id(params[:id])
     @compania= dummy.compania
-    @factura= dummy.compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@compania.cliente_de_nombre(params[:nombre]))
+    @factura= dummy.compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@cliente)
     erb :factura_emitida
   rescue
     redirect '/error_404'
   end
 end
 
-get '/buscar_cliente/' do
+get '/seccion_clientes/buscar_cliente/' do
   begin
     @mes_del_anho= dummy.mes_del_anho_actual
-    @cliente= dummy.compania.cliente_de_nombre(params[:nombre])
+    @cliente= dummy.compania.cliente_con_id(params[:id])
     @compania= dummy.compania
 
     erb :datos_del_cliente
@@ -46,13 +46,19 @@ get '/buscar_cliente/' do
   end
 end
 
-post '/borrar_cliente/' do
+post '/seccion_clientes/borrar_cliente/' do
   begin
-    dummy.compania.borrar_cliente(params[:nombre])
-    redirect 'seccion_clientes'
+    @clientes= dummy.clientes
+    dummy.compania.borrar_cliente(params[:id])
+    erb :lista_de_clientes
   rescue NoExisteElClienteException
     redirect '/error_404'
   end
+end
+
+get '/seccion_clientes/lista_de_clientes' do
+  @clientes= dummy.clientes
+  erb :lista_de_clientes
 end
 
 not_found do
@@ -66,8 +72,9 @@ end
 
 post '/seccion_clientes/crear_cliente/' do
    begin
+    @clientes= dummy.clientes
     dummy.compania.agregar_cliente(params[:nombre],LineaTelefonica.new(CodArea.new(params[:cod_local],params[:cod_nacional]) ,params[:nro]))
-    redirect '/seccion_clientes'
+    erb :lista_de_clientes
    rescue YaExisteElClienteException, LineaInvalidaException
      erb :no_se_pudo_crear_el_cliente
    end
