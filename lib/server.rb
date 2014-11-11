@@ -5,13 +5,17 @@ require 'json'
 
 dummy= DummyInitialize.new
 
-get '/' do
-  erb :home
+not_found do
+  status 404
+  erb :error_404
 end
 
-get '/seccion_clientes' do
-  @clientes= dummy.clientes
-  erb :home_clientes
+get '/error_404' do
+  status 404
+end
+
+get '/' do
+  erb :home
 end
 
 get '/seccion_facturaciones' do
@@ -32,6 +36,12 @@ get '/seccion_facturaciones/facturar/' do
   rescue
     redirect '/error_404'
   end
+end
+
+
+get '/seccion_clientes' do
+  @clientes= dummy.clientes
+  erb :home_clientes
 end
 
 get '/seccion_clientes/buscar_cliente/' do
@@ -59,15 +69,6 @@ end
 get '/seccion_clientes/lista_de_clientes' do
   @clientes= dummy.clientes
   erb :lista_de_clientes
-end
-
-not_found do
-  status 404
-  erb :error_404
-end
-
-get '/error_404' do
-  status 404
 end
 
 post '/seccion_clientes/crear_cliente/' do
