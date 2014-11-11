@@ -16,13 +16,15 @@ class CompaniaTelefonica
     @clientes=[]
     @registro_de_llamadas=RegistroDeLlamadas.new
     @facturador_de_llamadas= FacturadorDeLlamadas.new(@registro_de_llamadas)
+    @id_cliente=0
   end
 
   def agregar_cliente(nombre,cod)
     if(existe_el_cliente?(nombre))
        self.ya_existe_el_cliente
     end
-    clientes.push(Cliente.new(nombre,cod,self))
+    clientes.push(Cliente.new(nombre,cod,self,@id_cliente))
+    @id_cliente+=1
   end
 
   def existe_el_cliente?(nombre)
