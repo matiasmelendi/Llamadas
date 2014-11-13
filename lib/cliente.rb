@@ -16,6 +16,10 @@ class Cliente
     linea.cod_area
   end
 
+  def numero
+    linea.numero
+  end
+
   def realizar_llamada(duracion, receptor)
     compania.cliente_realizo_llamada_a(self,receptor,duracion)
   end
