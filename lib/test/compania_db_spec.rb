@@ -21,8 +21,8 @@ describe 'The behaviour of a SQLite3DB' do
       @compania_db.clientes.size.should equal(1)
   end
 
-  it 'should' do
-
+  it 'should delete a client by id' do
+    pending("not implemented yet!")
   end
 
 end
