@@ -36,6 +36,10 @@ class CompaniaDB
    @db.execute 'DROP TABLE clientes'
   end
 
+  def eliminar_cliente(id)
+    @db.execute 'DELETE FROM clientes WHERE id='+id.to_s
+  end
+
   private
   def conectar
     SQLite3::Database.open 'CompaniaDB'
