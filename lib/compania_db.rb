@@ -11,8 +11,8 @@ class CompaniaDB
 
     SQLite3::Database.new 'CompaniaDB'
     @db=SQLite3::Database.open 'CompaniaDB'
-    @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER)'#No uso la convención Id porque cliente tiene su propio ID
-    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,num_emisor INTEGER,num_receptor INTEGER)'
+    @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER);'#No uso la convención Id porque cliente tiene su propio ID
+    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,num_emisor INTEGER,num_receptor INTEGER);'
   end
 
   def agregar_cliente(cliente)
@@ -24,8 +24,8 @@ class CompaniaDB
   def clientes
     query_struct(lambda{
       db.results_as_hash= true
-      clientes=db.execute('SELECT * FROM clientes')
-      rs=clientes.inject([]) { |rs,cliente|
+      clientes=db.execute('SELECT * FROM clientes;')
+      clientes.inject([]) { |rs,cliente|
         rs.push(Cliente.new(cliente['nombre'],LineaTelefonica.new(CodArea.new(cliente['cod_l'],cliente['cod_n']),cliente['numero']),@compania,cliente['id']))
       }
     })
@@ -33,11 +33,15 @@ class CompaniaDB
   end
 
   def borrar_clientes
-   @db.execute 'DROP TABLE clientes'
+   @db.execute 'DROP TABLE clientes ;'
   end
 
   def eliminar_cliente(id)
-    @db.execute 'DELETE FROM clientes WHERE id='+id.to_s
+    @db.execute 'DELETE FROM clientes WHERE id='+id.to_s+';'
+  end
+
+  def actualizar_cliente(id,attr,val)
+    @db.execute 'UPDATE OR REPLACE clientes SET '+attr.to_s+'= "'+val.to_s+'" WHERE id='+ id.to_s+';'
   end
 
   private
