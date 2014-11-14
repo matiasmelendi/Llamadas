@@ -36,6 +36,7 @@ describe 'The behaviour of a SQLite3DB' do
   end
 
   it 'if I search for exists of the client "Memo", it should return true ' do
+    @compania_db.agregar_cliente(@cliente)
     @compania_db.existe_el_cliente?("Memo").should be(true)
   end
 
