@@ -12,7 +12,7 @@ class CompaniaDB
     SQLite3::Database.new 'CompaniaDB'
     @db=SQLite3::Database.open 'CompaniaDB'
     @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER);'#No uso la convención Id porque cliente tiene su propio ID
-    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,num_emisor INTEGER,num_receptor INTEGER);'
+    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,id_emisor INTEGER,id_receptor INTEGER);'
   end
 
   def agregar_cliente(cliente)
@@ -31,6 +31,13 @@ class CompaniaDB
   def actualizar_cliente(id,attr,val)
     query_struct(lambda{
       db.execute 'UPDATE OR REPLACE clientes SET '+attr.to_s+'= "'+val.to_s+'" WHERE id='+ id.to_s+';'
+    })
+  end
+
+  def existe_el_cliente?(nombre)
+    query_struct(lambda{
+      filtrados=db.execute 'SELECT * FROM clientes WHERE nombre="'+nombre.to_s+'";'
+      filtrados.count > 0
     })
   end
 
