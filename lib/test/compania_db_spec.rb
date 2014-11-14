@@ -22,7 +22,10 @@ describe 'The behaviour of a SQLite3DB' do
   end
 
   it 'should delete a client by id' do
-    pending("not implemented yet!")
+    id= @cliente.id
+    @compania_db.agregar_cliente(@cliente)
+    @compania_db.eliminar_cliente(id)
+    @compania_db.clientes.size.should equal(0)
   end
 
 end
