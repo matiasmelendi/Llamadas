@@ -35,4 +35,8 @@ describe 'The behaviour of a SQLite3DB' do
     @compania_db.clientes.first.nombre.should eql("Matias")
   end
 
+  it 'if I search for exists of the client "Memo", it should return true ' do
+    @compania_db.existe_el_cliente?("Memo").should be(true)
+  end
+
 end
