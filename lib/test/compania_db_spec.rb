@@ -38,6 +38,12 @@ describe 'The behaviour of a SQLite3DB' do
     @compania_db.clientes.first.nombre.should eql("Matias")
   end
 
+  it 'shouldn´t update the name, beacuse the property name is invalid' do
+    id=@cliente.id
+    @compania_db.agregar_cliente(@cliente)
+    expect(@compania_db.actualizar_cliente(id,'Nombre',"Matias")).should eql?("Query error!")
+  end
+
   it 'if I search for exists of the client "Memo", it should return true ' do
     @compania_db.agregar_cliente(@cliente)
     @compania_db.existe_el_cliente?("Memo").should be(true)
@@ -52,7 +58,13 @@ describe 'The behaviour of a SQLite3DB' do
     @compania_db.agregar_cliente(@cliente)
     @compania_db.agregar_cliente(@cliente2)
     @compania_db.se_realizo_llamada(@cliente,@cliente2,Duration.new(10))
-    (@compania_db.llamadas_del_cliente("Memo")).should equal(1)
+    (@compania_db.llamadas_del_cliente("Memo").size).should equal(1)
+  end
+
+  it 'should delete the client Memo with id=1' do
+    @compania_db.agregar_cliente(@cliente)
+    @compania_db.eliminar_cliente(1)
+    (@compania_db.clientes.size).should equal(0)
   end
 
 end
