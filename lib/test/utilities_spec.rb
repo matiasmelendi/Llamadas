@@ -1,9 +1,9 @@
 require 'rspec'
-require '../lib/util/utilities'
-require '../lib/exceptions/hora_invalida_exception'
-require '../lib/exceptions/monto_invalido_exception'
-require '../lib/util/rango_horario'
-require '../lib/exceptions/rango_horario_invalido_exception'
+require '../util/utilities'
+require '../exceptions/hora_invalida_exception'
+require '../exceptions/monto_invalido_exception'
+require '../util/rango_horario'
+require '../exceptions/rango_horario_invalido_exception'
 require 'date'
 
 describe 'Funcionalidades extra a Numeric' do

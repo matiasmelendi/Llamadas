@@ -1,25 +1,25 @@
 require 'rspec'
-require '../lib/compania_telefonica'
-require '../lib/cliente'
-require '../lib/util/duration'
-require '../lib/util/utilities'
-require '../lib/util/mes_del_anio'
-require '../lib/cod_area'
-require '../lib/llamada'
-require '../lib/restricciones/llamando_a_europa'
-require '../lib/restricciones/llamando_a_norte_america'
-require '../lib/restricciones/llamando_a_sudamerica'
-require '../lib/restricciones/restriccion_de_facturacion'
-require '../lib/restricciones/restriccion_dia_habil_en_hora_pico'
-require '../lib/restricciones/restriccion_fin_de_semana'
-require '../lib/restricciones/sin_restriccion_por_zona'
-require '../lib/restricciones/llamada_local'
-require '../lib/restricciones/llamada_nacional'
-require '../lib/linea_telefonica'
+require '../compania_telefonica'
+require '../cliente'
+require '../util/duration'
+require '../util/utilities'
+require '../util/mes_del_anio'
+require '../cod_area'
+require '../llamada'
+require '../restricciones/llamando_a_europa'
+require '../restricciones/llamando_a_norte_america'
+require '../restricciones/llamando_a_sudamerica'
+require '../restricciones/restriccion_de_facturacion'
+require '../restricciones/restriccion_dia_habil_en_hora_pico'
+require '../restricciones/restriccion_fin_de_semana'
+require '../restricciones/sin_restriccion_por_zona'
+require '../restricciones/llamada_local'
+require '../restricciones/llamada_nacional'
+require '../linea_telefonica'
 
 describe 'El comportamiento de una compania telefonica' do
 
-  before() do
+  before do
     @compania_telefonica= CompaniaTelefonica.new
     @compania_telefonica.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
     @compania_telefonica.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
@@ -31,6 +31,7 @@ describe 'El comportamiento de una compania telefonica' do
 
   context 'Cuando genera la factura para un cliente en un determinado mes' do
 
+    #Son contextuales(debido al uso de fechas verdaderas), variar los meses
     it 'Si un cliente no realiza llamadas, solo deberia facturarse el costo fijo' do
       @factura=@compania_telefonica.facturar_mes(MesDelAnio.septiembre(2014),@cliente_argentino)
       @factura.monto_a_pagar.should equal(10.to_pesos)

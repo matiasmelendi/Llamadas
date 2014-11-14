@@ -3,8 +3,8 @@ require_relative 'money'
 
 class Cents < Money
 
-  def +(another_kind_of_money)
-    another_kind_of_money.sum_with_cents(self)
+  def +(another_money)
+    another_money.sum_with_cents(self)
   end
 
   def equal?(another_cent)

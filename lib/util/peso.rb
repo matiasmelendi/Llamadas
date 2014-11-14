@@ -5,8 +5,8 @@ class Peso < Money
     super(value)
   end
 
-  def +(another_kind_of_money)
-    another_kind_of_money.sum_with_peso(self)
+  def +(another_money)
+    another_money.sum_with_peso(self)
   end
 
   def sum_with_peso(another_peso)

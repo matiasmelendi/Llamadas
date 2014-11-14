@@ -1,4 +1,4 @@
-require '../lib/restricciones/restriccion_diaria'
+require '../restricciones/restriccion_diaria'
 class RestriccionDiasHabiles < RestriccionDiaria
 
   def costo

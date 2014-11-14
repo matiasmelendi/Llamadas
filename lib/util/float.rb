@@ -4,19 +4,21 @@ require_relative 'peso'
 class Float
 
   def parte_entera
-    self.truncate
+    floor
   end
 
+#####Check this
   def parte_racional
-    (self.truncate - self).magnitude
+    (floor - self).magnitude
   end
 
+  #Problems in this methods
   def to_cents
-    (self.parte_entera*100).to_cents + (self.parte_racional.to_cents)
+    (parte_entera*100 + parte_racional*10).to_i.to_cents
   end
 
-  def to_pesos
-    self.parte_entera.to_pesos + (self.parte_racional.to_cents)
-  end
+  # def to_pesos
+  #   (super.to_pesos.value/100).to_pesos
+  # end
 
 end

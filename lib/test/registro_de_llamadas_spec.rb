@@ -1,15 +1,15 @@
 require 'rspec'
-require '../lib/compania_telefonica'
-require '../lib/cod_area'
-require '../lib/cliente'
-require '../lib/util/numeric'
-require '../lib/util/mes_del_anio'
-require '../lib/linea_telefonica'
+require '../compania_telefonica'
+require '../cod_area'
+require '../cliente'
+require '../util/numeric'
+require '../util/mes_del_anio'
+require '../linea_telefonica'
 
 
 describe 'El comportamiento del registro de llamadas' do
 
-  before() do
+  before do
     @compania_telefonica= CompaniaTelefonica.new
     @compania_telefonica.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111))
     @compania_telefonica.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222))
@@ -24,6 +24,7 @@ describe 'El comportamiento del registro de llamadas' do
     end
   end
 
+  #Son contextuales(debido al uso de fechas verdaderas), variar los meses
   context 'Si se desea saber las llamadas de un cliente' do
     it 'Deberia retornar una lista con las llamadas de ese cliente' do
       @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)

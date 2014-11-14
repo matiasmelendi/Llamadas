@@ -41,6 +41,13 @@ class CompaniaDB
     })
   end
 
+  def llamadas_del_cliente(id)
+    query_struct(lambda{
+      db.execute 'SELECT * FROM llamadas WHERE id_emisor='+id.to_s+';'
+
+    })
+  end
+
   def clientes
     query_struct(lambda{
       db.results_as_hash= true

@@ -76,7 +76,7 @@ post '/seccion_clientes/crear_cliente/' do
    begin
     @clientes= dummy.clientes
     dummy.compania.agregar_cliente(params[:nombre],LineaTelefonica.new(CodArea.new(params[:cod_local],params[:cod_nacional]) ,params[:nro]))
-    erb :lista_de_clientes
+
    rescue YaExisteElClienteException, LineaInvalidaException
      erb :no_se_pudo_crear_el_cliente
    end

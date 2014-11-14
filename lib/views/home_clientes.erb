@@ -11,12 +11,12 @@
             //Debería refrescar los clientes
             $(document).ready(function () {
 
-                        $('#clientes').load('/seccion_clientes/lista_de_clientes');
+                $('#clientes').load('/seccion_clientes/lista_de_clientes');
 
-                        $('#formCrear').submit(function(data) {
-                           $('#clientes').html(data);
-                        });
-
+                $('#formCrear').submit(function(e,data) {
+                    e.preventDefault();
+                    $('#clientes').html(data);
+                });
             });
 
         </script>

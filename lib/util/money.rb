@@ -13,11 +13,11 @@ class Money
     end
   end
 
-  def +(another_kind_of_money)
+  def +(another_money)
     #SubclassResponsability
   end
 
-  def equal?(another_kind_of_money)
+  def equal?(another_money)
     #SubclassResponsability
   end
 

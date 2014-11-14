@@ -40,4 +40,10 @@ describe 'The behaviour of a SQLite3DB' do
     @compania_db.existe_el_cliente?("Memo").should be(true)
   end
 
+  it 'should return the phone calls of the client Memo' do
+    id=@cliente.id
+    @compania_db.agregar_cliente(@cliente)
+    expect(@compania_db.llamadas_del_cliente(id).size).equal(0)
+  end
+
 end

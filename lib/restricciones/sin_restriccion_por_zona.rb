@@ -1,4 +1,4 @@
-require '../lib/restricciones/restriccion_por_zona'
+require '../restricciones/restriccion_por_zona'
 class SinRestriccionPorZona < RestriccionPorZona
 
   def costo
