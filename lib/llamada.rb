@@ -8,8 +8,8 @@ class Llamada
   attr_reader :receptor
   attr_reader :duracion
 
-  def initialize(emisor,receptor,duracion)
-    @fecha=DateTime.now
+  def initialize(emisor,receptor,duracion,fecha)
+    @fecha=fecha
     @emisor=emisor
     @receptor=receptor
     @duracion=duracion
