@@ -28,4 +28,11 @@ describe 'The behaviour of a SQLite3DB' do
     @compania_db.clientes.size.should equal(0)
   end
 
+  it 'should update the name of client with id=1' do
+    id=@cliente.id
+    @compania_db.agregar_cliente(@cliente)
+    @compania_db.actualizar_cliente(id,'nombre',"Matias")
+    @compania_db.clientes.first.nombre.should eql("Matias")
+  end
+
 end
