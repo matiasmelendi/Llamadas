@@ -12,7 +12,7 @@ class CompaniaDB
     SQLite3::Database.new 'CompaniaDB'
     @db=SQLite3::Database.open 'CompaniaDB'
     @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER);'#No uso la convención Id porque cliente tiene su propio ID
-    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,id_emisor INTEGER,id_receptor INTEGER);'
+    @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(Id INTEGER,duracion INTEGER,id_emisor INTEGER,id_receptor INTEGER,fecha DATE);'
   end
 
   def agregar_cliente(cliente)
@@ -41,10 +41,20 @@ class CompaniaDB
     })
   end
 
-  def llamadas_del_cliente(id)
+  def llamadas_del_cliente(nombre)
     query_struct(lambda{
-      db.execute 'SELECT * FROM llamadas WHERE id_emisor='+id.to_s+';'
+      llamadas=db.execute 'SELECT * FROM clientes AS c,llamadas AS ll WHERE c.nombre="'+nombre.to_s+'";'
+      llamadas.inject([]) { |rs,llamada |
+        rs.push(Llamada.new(cliente_de_id(llamada['id_emisor']),cliente_de_id(llamada['id_receptor']),llamada['duracion'],llamada['fecha']))
+      }
+    })
+  end
 
+  def cliente_de_id(id)
+    query_struct(lambda{
+      filtrados=db.execute 'SELECT * FROM clientes WHERE id="'+id.to_s+'";'
+      cliente=filtrados.first
+      Cliente.new(cliente['nombre'],LineaTelefonica.new(CodArea.new(cliente['cod_l'],cliente['cod_n']),cliente['numero']),@compania,cliente['id'])
     })
   end
 

@@ -41,9 +41,8 @@ describe 'The behaviour of a SQLite3DB' do
   end
 
   it 'should return the phone calls of the client Memo' do
-    id=@cliente.id
     @compania_db.agregar_cliente(@cliente)
-    expect(@compania_db.llamadas_del_cliente(id).size).equal(0)
+    (@compania_db.llamadas_del_cliente("Memo").size).should equal(0)
   end
 
 end
