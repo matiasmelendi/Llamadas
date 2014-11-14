@@ -21,6 +21,19 @@ class CompaniaDB
     })
   end
 
+
+  def eliminar_cliente(id)
+    query_struct(lambda{
+      db.execute 'DELETE FROM clientes WHERE id='+id.to_s+';'
+    })
+  end
+
+  def actualizar_cliente(id,attr,val)
+    query_struct(lambda{
+      db.execute 'UPDATE OR REPLACE clientes SET '+attr.to_s+'= "'+val.to_s+'" WHERE id='+ id.to_s+';'
+    })
+  end
+
   def clientes
     query_struct(lambda{
       db.results_as_hash= true
@@ -33,15 +46,9 @@ class CompaniaDB
   end
 
   def borrar_clientes
-   @db.execute 'DROP TABLE clientes ;'
-  end
-
-  def eliminar_cliente(id)
-    @db.execute 'DELETE FROM clientes WHERE id='+id.to_s+';'
-  end
-
-  def actualizar_cliente(id,attr,val)
-    @db.execute 'UPDATE OR REPLACE clientes SET '+attr.to_s+'= "'+val.to_s+'" WHERE id='+ id.to_s+';'
+    query_struct(lambda{
+      db.execute 'DROP TABLE clientes ;'
+    })
   end
 
   private
