@@ -11,7 +11,7 @@ class CompaniaDB
 
     SQLite3::Database.new 'CompaniaDB'
     @db=SQLite3::Database.open 'CompaniaDB'
-    @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER PRIMARY KEY,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER);'#No uso la convención Id porque cliente tiene su propio ID
+    @db.execute 'CREATE TABLE IF NOT EXISTS clientes(id INTEGER PRIMARY KEY,nombre TEXT,numero INTEGER,cod_l INTEGER,cod_n INTEGER);'
     @db.execute 'CREATE TABLE IF NOT EXISTS llamadas(duracion INTEGER,id_emisor INTEGER,id_receptor INTEGER,fecha DATE);'
   end
 
@@ -25,26 +25,27 @@ class CompaniaDB
 
   def eliminar_cliente(id)
     query_struct(lambda{
-      db.execute 'DELETE FROM clientes WHERE id='+id.to_s+';'
+      db.execute 'DELETE FROM clientes WHERE id=?;',[id]
     })
   end
 
   def actualizar_cliente(id,attr,val)
     query_struct(lambda{
-      db.execute 'UPDATE OR REPLACE clientes SET '+attr.to_s+'= "'+val.to_s+'" WHERE id='+ id.to_s+';'
+      db.execute 'UPDATE clientes SET '+check(attr)+'= ? WHERE id=?;',[val,id]
     })
   end
 
   def existe_el_cliente?(nombre)
     query_struct(lambda{
-      filtrados=db.execute 'SELECT * FROM clientes WHERE nombre="'+nombre.to_s+'";'
+      filtrados=db.execute 'SELECT * FROM clientes WHERE nombre=?;',[nombre]
       filtrados.count > 0
     })
   end
 
   def llamadas_del_cliente(nombre)
     query_struct(lambda{
-      llamadas=db.execute 'SELECT * FROM clientes,llamadas WHERE clientes.nombre="'+nombre.to_s+'";'
+      db.results_as_hash= true
+      llamadas=db.execute 'SELECT * FROM clientes,llamadas WHERE clientes.nombre=?;',[nombre]
       llamadas.inject([]) { |rs,llamada|
         rs.push(Llamada.new(cliente_de_id(llamada['id_emisor']),cliente_de_id(llamada['id_receptor']),llamada['duracion'],llamada['fecha']))
       }
@@ -53,7 +54,8 @@ class CompaniaDB
 
   def cliente_de_id(id)
     query_struct(lambda{
-      filtrados=db.execute 'SELECT * FROM clientes WHERE id="'+id.to_s+'";'
+      db.results_as_hash= true
+      filtrados=db.execute 'SELECT * FROM clientes WHERE id="?";',[id]
       cliente=filtrados.first
       Cliente.new(cliente['nombre'],LineaTelefonica.new(
                                             CodArea.new(cliente['cod_l'],cliente['cod_n']),cliente['numero']),@compania,cliente['id'])
@@ -102,10 +104,21 @@ class CompaniaDB
       db=conectar
       a_block[]
     rescue SQLite3::Exception => exception
-      puts exception
+     exception.message
     ensure
       db.close if db
     end
   end
+
+  private
+  def check(field)
+    fields= %['nombre','id','numero','cod_l','cod_n']
+    if(fields.include?(field))
+      field.to_s
+    else
+      raise SQLite3::Exception.new("Query error!")
+    end
+  end
+
 
 end
