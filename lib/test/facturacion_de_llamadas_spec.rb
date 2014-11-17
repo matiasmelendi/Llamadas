@@ -39,7 +39,7 @@ describe 'El comportamiento de una compania telefonica' do
 
     it 'Si un cliente realiza una llamada en todo el mes, la factura mensual deberia cobrarle el valor de la llamada + el costo fijo' do
       @cliente_argentino.realizar_llamada(Duration.new(1.to_minutes),@receptor_local)
-      @factura=@compania_telefonica.facturar_mes(MesDelAnio.septiembre(2014),@cliente_argentino)
+      @factura=@compania_telefonica.facturar_mes(MesDelAnio.noviembre(2014),@cliente_argentino)
       @factura.monto_a_pagar.should equal(10.20.to_pesos)
     end
 
@@ -47,7 +47,7 @@ describe 'El comportamiento de una compania telefonica' do
     it 'Si un cliente realiza dos llamadas en todo el mes, la factura mensual deberia cobrarle el valor de las llamadas + el costo fijo' do
       @cliente_argentino.realizar_llamada(Duration.new(10.to_minutes),@receptor_europeo)
       @cliente_argentino.realizar_llamada(Duration.new(1.to_minutes),@receptor_local)
-      @factura=@compania_telefonica.facturar_mes(MesDelAnio.septiembre(2014),@cliente_argentino)
+      @factura=@compania_telefonica.facturar_mes(MesDelAnio.noviembre(2014),@cliente_argentino)
       #0.20 por minuto hora pico y dia habil + 0.70 * 10 minutos a Europa + costo fijo
       @factura.monto_a_pagar.should equal(17.20.to_pesos)
     end
