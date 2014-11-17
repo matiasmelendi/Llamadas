@@ -24,7 +24,11 @@ class CompaniaARDB
   #Ver si se puede resolver de alguna manera
   def actualizar_cliente(id,attr,val)
     cliente=ClienteAR.find_by(_id:id)
-    cliente.update(nombre: val)
+    begin
+      cliente.update(attr.to_sym => val)
+    rescue ActiveRecord::UnknownAttributeError
+      "Query error!"
+    end
   end
 
   def borrar_clientes
