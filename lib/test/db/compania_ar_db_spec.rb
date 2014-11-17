@@ -4,14 +4,16 @@ require_relative '../../db/compania_ardb'
 require_relative '../../linea_telefonica'
 require_relative '../../cod_area'
 require_relative '../../compania_telefonica'
+require '../../db/cliente_ar'
+require '../../db/llamadas_ar'
 
-describe 'The behaviour of a SQLite3DB' do
+describe 'The behaviour of a ActiveRecordDB' do
 
   before do
     @compania= CompaniaTelefonica.new
-    @compania_db= CompaniaDB.new(@compania)
     @cliente= Cliente.new("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),@compania,1)
     @cliente2= Cliente.new("Memito",LineaTelefonica.new(CodArea.new(120,54),1522222222),@compania,2)
+    @compania_db= CompaniaARDB.new
   end
 
   after do
