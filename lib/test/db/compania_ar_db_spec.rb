@@ -46,9 +46,9 @@ describe 'The behaviour of a ActiveRecordDB' do
     expect(@compania_db.actualizar_cliente(id,'Nombre',"Matias")).should eql?("Query error!")
   end
 
-  it 'if I search for exists of the client "Memo", it should return true ' do
+  it 'if I search for exists of the client "Memo" with id=1, it should return true ' do
     @compania_db.agregar_cliente(@cliente)
-    @compania_db.existe_el_cliente?("Memo").should be(true)
+    @compania_db.existe_el_cliente?(@cliente.id).should be(true)
   end
 
   it 'should return the phone calls of the client Memo, in this case 0' do
