@@ -22,7 +22,7 @@ require '../../server'
 
           it 'should return an exception because this page don´t redirect another page' do
             get '/'
-            expect(follow_redirect!).to raise_error(Error, "Last response was not a redirect. Cannot follow_redirect!")
+            expect(lambda{follow_redirect!}).to raise_error(Rack::Test::Error, 'Last response was not a redirect. Cannot follow_redirect!')
           end
 
         end
