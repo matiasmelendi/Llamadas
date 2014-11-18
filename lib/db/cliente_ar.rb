@@ -16,4 +16,5 @@ class ClienteAR < ActiveRecord::Base
     end
   end
 
+
 end

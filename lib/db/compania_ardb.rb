@@ -1,4 +1,6 @@
 require 'active_record'
+require_relative 'cliente_ar'
+require_relative 'llamadas_ar'
 
 class CompaniaARDB
 
@@ -17,11 +19,14 @@ class CompaniaARDB
     ClienteAR.all
   end
 
+  def llamadas
+    LlamadasAR.all
+  end
+
   def eliminar_cliente(id)
     ClienteAR.find_by(_id:id).destroy
   end
 
-  #Ver si se puede resolver de alguna manera
   def actualizar_cliente(id,attr,val)
     cliente=ClienteAR.find_by(_id:id)
     begin
@@ -39,17 +44,30 @@ class CompaniaARDB
     LlamadasAR.delete_all
   end
 
-  def existe_el_cliente?(nombre)
-    ClienteAR.exists?(nombre: nombre)
+  def existe_el_cliente?(id)
+    ClienteAR.exists?(_id: id)
+  end
+
+  def cliente_con_id(id)
+    buscar_cliente_por('_id',id)
+  end
+
+  def cliente_de_nombre(nombre)
+    buscar_cliente_por('nombre',nombre)
   end
 
   def llamadas_del_cliente(nombre)
     cliente=ClienteAR.find_by(nombre: nombre)
-    LlamadasAR.select(emisor_id: cliente.id)
+    LlamadasAR.where(emisor_id: cliente.id)
   end
 
   def se_realizo_llamada(emisor,receptor,duracion)
     LlamadasAR.create(emisor_id:emisor.id,id_receptor:receptor.id,duracion:duracion.value,fecha:Time.now)
+  end
+
+  private
+  def buscar_cliente_por(attr,val)
+    ClienteAR.find_by(attr.to_sym => val)
   end
 
 end

@@ -4,7 +4,7 @@ require_relative 'cliente'
 require_relative 'util/mes_del_anio'
 require_relative 'exceptions/ya_existe_el_cliente_exception'
 require_relative 'exceptions/no_existe_el_cliente_exception'
-
+require_relative 'db/compania_ardb'
 
 class CompaniaTelefonica
 
@@ -16,38 +16,42 @@ class CompaniaTelefonica
     @clientes=[]
     @registro_de_llamadas=RegistroDeLlamadas.new
     @facturador_de_llamadas= FacturadorDeLlamadas.new(@registro_de_llamadas)
-    @id_cliente=0
+    @bd= CompaniaARDB.new
   end
 
-  def agregar_cliente(nombre,cod)
-    if(existe_el_cliente?(nombre))
+  def agregar_cliente(nombre,linea,id)
+    if(existe_el_cliente?(id))
        self.ya_existe_el_cliente
     end
-    clientes.push(Cliente.new(nombre,cod,self,@id_cliente))
-    @id_cliente+=1
+    @bd.agregar_cliente(Cliente.new(nombre,linea,self,id))
   end
 
   def existe_el_cliente?(id)
-    clientes.count{|cliente| id.eql?(cliente.id)} > 0
+    @bd.existe_el_cliente?(id)
   end
 
   def borrar_cliente(id)
     if(!existe_el_cliente?(id))
       self.no_existe_el_cliente
     end
-    clientes.delete_if{|cliente| cliente.id.eql?(id)}
+    @bd.eliminar_cliente(id)
   end
 
   def cliente_con_id(id)
-    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| cliente.id.equal?(id)}
+    @bd.cliente_con_id(id)
   end
 
   def cliente_de_nombre(nombre)
-    clientes.detect(lambda{self.no_existe_el_cliente}){|cliente| cliente.nombre.eql?(nombre)}
+    cliente=@bd.cliente_de_nombre(nombre)
+    Cliente.new(cliente.nombre,LineaTelefonica.new(CodArea.new(cliente.cod_l,cliente.cod_n),cliente.numero),self,cliente.id)
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)
-    registro_de_llamadas.llamadas_del_cliente_en_el_mes(cliente_de_nombre(nombre),mes_del_anho)
+     llamadas=@bd.llamadas_del_cliente(nombre)
+    llamadas.select{|llamada|
+            llamada.fecha.month.equal?(mes_del_anho.mes) &&
+            llamada.fecha.year.equal?(mes_del_anho.año)
+      }
   end
 
   def no_existe_el_cliente
@@ -58,14 +62,23 @@ class CompaniaTelefonica
       raise YaExisteElClienteException.new
   end
 
-  def facturar_mes(mesDelAño, cliente)
-    @facturador_de_llamadas.facturar_mes(mesDelAño,cliente)
+  def facturar_mes(mes_del_anho, cliente)
+    @facturador_de_llamadas.facturar_mes(mes_del_anho,cliente)
   end
 
   def cliente_realizo_llamada_a(emisor,receptor,duracion)
-    @registro_de_llamadas.nueva_llamada(emisor,receptor,duracion)
+    @bd.se_realizo_llamada(emisor,receptor,duracion)
   end
 
+  def eliminar_clientes
+    @bd.borrar_clientes
+  end
 
+  def eliminar_llamadas
+    @bd.borrar_llamadas
+  end
 
+  def llamadas
+    @bd.llamadas
+  end
 end
