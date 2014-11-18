@@ -28,7 +28,7 @@ describe 'El comportamiento del registro de llamadas' do
   context 'Si se desea saber las llamadas de un cliente' do
     it 'Deberia retornar una lista con las llamadas de ese cliente' do
       @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAnio.septiembre(2014))
+      llamadas=@compania_telefonica.registro_de_llamadas.llamadas_del_cliente_en_el_mes(@cliente_argentino,MesDelAnio.noviembre(2014))
       llamadas.size.should be(1)
     end
 

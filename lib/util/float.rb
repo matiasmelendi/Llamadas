@@ -14,7 +14,7 @@ class Float
 
   #Problems in this methods
   def to_cents
-    (parte_entera*100 + parte_racional*10).to_i.to_cents
+    (parte_entera + parte_racional*10).to_cents
   end
 
   # def to_pesos
