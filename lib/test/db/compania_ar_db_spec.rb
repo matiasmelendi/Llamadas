@@ -53,14 +53,14 @@ describe 'The behaviour of a ActiveRecordDB' do
 
   it 'should return the phone calls of the client Memo, in this case 0' do
     @compania_db.agregar_cliente(@cliente)
-    (@compania_db.llamadas_del_cliente("Memo").size).should equal(0)
+    (@compania_db.llamadas_del_cliente('Memo').size).should be(0)
   end
 
   it 'should return the phone calls of Memo, in this case 1' do
     @compania_db.agregar_cliente(@cliente)
     @compania_db.agregar_cliente(@cliente2)
     @compania_db.se_realizo_llamada(@cliente,@cliente2,Duration.new(10))
-    (@compania_db.llamadas_del_cliente("Memo").size).should equal(1)
+    (@compania_db.llamadas_del_cliente('Memo').size).should be(1)
   end
 
   it 'should delete the client Memo with id=1' do

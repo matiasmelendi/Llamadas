@@ -10,7 +10,7 @@ class CompaniaARDB
 
 
   def agregar_cliente(cliente)
-    ClienteAR.create(nombre:cliente.nombre,_id:cliente.id,
+    ClienteAR.create(nombre:cliente.nombre, id:cliente.id,
                      numero:cliente.numero,cod_l:cliente.cod_area.cod_local,
                      cod_n:cliente.cod_area.cod_nacional)
   end
@@ -24,11 +24,11 @@ class CompaniaARDB
   end
 
   def eliminar_cliente(id)
-    ClienteAR.find_by(_id:id).destroy
+    ClienteAR.find_by(id:id).destroy
   end
 
   def actualizar_cliente(id,attr,val)
-    cliente=ClienteAR.find_by(_id:id)
+    cliente=ClienteAR.find_by(id:id)
     begin
       cliente.update(attr.to_sym => val)
     rescue ActiveRecord::UnknownAttributeError
@@ -45,11 +45,11 @@ class CompaniaARDB
   end
 
   def existe_el_cliente?(id)
-    ClienteAR.exists?(_id: id)
+    ClienteAR.exists?(id: id)
   end
 
   def cliente_con_id(id)
-    buscar_cliente_por('_id',id)
+    buscar_cliente_por('id',id)
   end
 
   def cliente_de_nombre(nombre)
@@ -57,8 +57,8 @@ class CompaniaARDB
   end
 
   def llamadas_del_cliente(nombre)
-    cliente=ClienteAR.find_by(nombre: nombre)
-    LlamadasAR.where(emisor_id: cliente.id)
+     LlamadasAR.where('emisor_id = ?', [ClienteAR.find_by(nombre: nombre).id])
+    #ClienteAR.find_by(nombre: nombre).llamadas_ars
   end
 
   def se_realizo_llamada(emisor,receptor,duracion)

@@ -47,11 +47,12 @@ class CompaniaTelefonica
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)
-     llamadas=@bd.llamadas_del_cliente(nombre)
-    llamadas.select{|llamada|
-            llamada.fecha.month.equal?(mes_del_anho.mes) &&
+
+    llamadas_del_cliente = @bd.llamadas_del_cliente(nombre)
+    llamadas_del_cliente.select{|llamada|
+      llamada.fecha.month.equal?(mes_del_anho.mes) &&
             llamada.fecha.year.equal?(mes_del_anho.año)
-      }
+    }
   end
 
   def no_existe_el_cliente
