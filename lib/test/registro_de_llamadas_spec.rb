@@ -29,11 +29,12 @@ describe 'El comportamiento del registro de llamadas' do
     end
   end
 
-  #Son contextuales(debido al uso de fechas verdaderas), variar los meses
   context 'Si se desea saber las llamadas de un cliente' do
     it 'Deberia retornar una lista con las llamadas de ese cliente' do
+      date=Time.now
+      mes_del_anho=MesDelAnio.new(date.year,date.month)
       @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.llamadas_del_cliente(@cliente_argentino.nombre,MesDelAnio.noviembre(2014))
+      llamadas=@compania_telefonica.llamadas_del_cliente(@cliente_argentino.nombre,mes_del_anho)
       llamadas.size.should be(1)
     end
 
