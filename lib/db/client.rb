@@ -1,19 +1,17 @@
-require_relative 'llamadas_ar'
+require_relative 'call'
 
-class ClienteAR < ActiveRecord::Base
+class Client < ActiveRecord::Base
 
   ActiveRecord::Base.establish_connection(
       :adapter  => "sqlite3",
       :database => "/home/memonono/RubymineProjects/llamadas/lib/db/compania_ar_db.db")
 
-  self.table_name ='clientes'
-
-  #has_many :llamadas_ars
+  has_many :calls
 
   ActiveRecord::Schema.define do
-    unless ActiveRecord::Base.connection.tables.include? 'clientes'
+    unless ActiveRecord::Base.connection.tables.include? 'clients'
 
-      create_table :clientes do |table|
+      create_table :clients do |table|
         table.column :nombre, :string
         table.column :numero, :integer
         table.column :cod_l, :integer
