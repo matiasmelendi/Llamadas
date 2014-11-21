@@ -1,11 +1,5 @@
-require 'rspec'
-require_relative '../../util/utilities'
-require_relative '../../db/compania_ardb'
-require_relative '../../linea_telefonica'
-require_relative '../../cod_area'
-require_relative '../../compania_telefonica'
-require '../../db/cliente_ar'
-require '../../db/llamadas_ar'
+require_relative '../model_spec_helper'
+require_relative '../db_spec_helper'
 
 describe 'The behaviour of a ActiveRecordDB' do
 
@@ -14,6 +8,7 @@ describe 'The behaviour of a ActiveRecordDB' do
     @cliente= Cliente.new("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),@compania,1)
     @cliente2= Cliente.new("Memito",LineaTelefonica.new(CodArea.new(120,54),1522222222),@compania,2)
     @compania_db= CompaniaARDB.new
+    @calendar= Calendario.new
   end
 
   after do
@@ -59,7 +54,7 @@ describe 'The behaviour of a ActiveRecordDB' do
   it 'should return the phone calls of Memo, in this case 1' do
     @compania_db.agregar_cliente(@cliente)
     @compania_db.agregar_cliente(@cliente2)
-    @compania_db.se_realizo_llamada(@cliente,@cliente2,Duration.new(10))
+    @compania_db.se_realizo_llamada(@cliente,@cliente2,Duration.new(10.to_minutes), @calendar.date_today)
     (@compania_db.llamadas_del_cliente('Memo').size).should be(1)
   end
 
