@@ -1,7 +1,7 @@
-require '../restricciones/restriccion_de_facturacion'
-require '../restricciones/restriccion_dias_habiles'
-require '../restricciones/restriccion_horaria'
-require '../restricciones/restriccion_compuesta'
+require_relative 'restriccion_de_facturacion'
+require_relative 'restriccion_dias_habiles'
+require_relative 'restriccion_horaria'
+require_relative 'restriccion_compuesta'
 
 class RestriccionDiaHabilEnHoraPico < RestriccionDeFacturacion
   attr_accessor :restriccion

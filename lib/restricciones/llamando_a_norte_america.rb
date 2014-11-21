@@ -1,4 +1,4 @@
-require '../restricciones/restriccion_por_zona'
+require_relative 'restriccion_por_zona'
 class LlamandoANorteAmerica < RestriccionPorZona
 
   def country_codes

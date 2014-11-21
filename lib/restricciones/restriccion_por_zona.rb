@@ -1,4 +1,4 @@
-require '../restricciones/restriccion_de_facturacion'
+require_relative 'restriccion_de_facturacion'
 
 class RestriccionPorZona < RestriccionDeFacturacion
 

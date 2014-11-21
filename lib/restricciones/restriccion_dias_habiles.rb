@@ -1,4 +1,4 @@
-require '../restricciones/restriccion_diaria'
+require_relative 'restriccion_diaria'
 class RestriccionDiasHabiles < RestriccionDiaria
 
   def costo
