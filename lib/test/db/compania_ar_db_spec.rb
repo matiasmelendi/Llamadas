@@ -63,4 +63,11 @@ describe 'The behaviour of a ActiveRecordDB' do
     @compania_db.eliminar_cliente(1)
     (@compania_db.clientes.size).should equal(0)
   end
+
+  it 'should delete the client Memo' do
+    @compania_db.agregar_cliente(@cliente)
+    @compania_db.eliminar_cliente_de_nombre('Memo')
+    (@compania_db.clientes.size).should equal(0)
+  end
+
 end

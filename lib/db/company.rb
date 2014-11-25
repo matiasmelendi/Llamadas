@@ -38,11 +38,15 @@ class Company < ActiveRecord::Base
   end
 
   def eliminar_cliente(id)
-    Client.find_by(id:id).destroy
+    cliente_con_id(id).destroy
+  end
+
+  def eliminar_cliente_de_nombre(nombre)
+    cliente_de_nombre(nombre).destroy
   end
 
   def actualizar_cliente(id,attr,val)
-    cliente=Client.find_by(id:id)
+    cliente= cliente_con_id(id)
     begin
       cliente.update(attr.to_sym => val)
     rescue ActiveRecord::UnknownAttributeError
