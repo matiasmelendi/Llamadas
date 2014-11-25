@@ -4,10 +4,10 @@ require_relative '../db_spec_helper'
 describe 'The behaviour of a ActiveRecordDB' do
 
   before do
-    @compania= CompaniaTelefonica.new
+    @compania= CompaniaTelefonica.new([])
     @cliente= Cliente.new("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),@compania,1)
     @cliente2= Cliente.new("Memito",LineaTelefonica.new(CodArea.new(120,54),1522222222),@compania,2)
-    @compania_db= CompaniaARDB.new
+    @compania_db= Company.new
     @calendar= Calendario.new
   end
 
