@@ -16,8 +16,8 @@
                         <li> Código de area nacional: <%= @cliente.linea.cod_area.cod_nacional %> </li>
                     </ul>
                     <ul> Llamadas
-                        <% @compania.llamadas_del_cliente(@cliente.nombre,@mes_del_anho).each{ |llamada| %>
-                            <li> A: <%=llamada.receptor.nombre%> Duración: <%= llamada.duracion_en_minutos.to_s + " minutos " %> Mes del año: <%= llamada.mes.to_s + "/" + llamada.año.to_s  %>  </li>
+                        <% @compania.llamadas_del_cliente(@cliente,@mes_del_anho).each{ |llamada| %>
+                            <li> A: <%=llamada.receptor.nombre%> Duración: <%= llamada.duracion.to_s + " minutos " %> Mes del año: <%= llamada.mes.to_s + "/" + llamada.año.to_s  %>  </li>
                         <% } %>
                     </ul>
                     <a class="btn btn-default" role="button" href="/" > Volver a la página principal</a>
