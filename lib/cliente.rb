@@ -8,7 +8,7 @@ class Cliente
   def initialize(nombre,linea,compania,id)
     @nombre=nombre
     @linea=linea
-    @compania=compania
+    @compania= compania
     @id=id
   end
 
@@ -20,8 +20,8 @@ class Cliente
     linea.numero
   end
 
-  def realizar_llamada(duracion, receptor)
-    compania.cliente_realizo_llamada_a(self,receptor,duracion)
+  def realizar_llamada(duracion, receptor,fecha)
+    compania.cliente_realizo_llamada_a(self,receptor,duracion,fecha)
   end
 
   def equal?(otro_cliente)

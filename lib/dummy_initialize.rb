@@ -9,7 +9,7 @@ class DummyInitialize
   attr_accessor :compania
 
   def initialize
-    @compania= CompaniaTelefonica.new
+    @compania= CompaniaTelefonica.new([])
     compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),1)
     compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222),2)
     compania.cliente_realizo_llamada_a(compania.cliente_de_nombre("Memo"),compania.cliente_de_nombre("EuroMemo"),Duration.new(10))

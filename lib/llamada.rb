@@ -24,7 +24,7 @@ class Llamada
   end
 
   def hora_de_llamada
-    @fecha.to_time.hour.to_hours
+    @fecha.hour.to_hours
   end
 
   def cod_nacional
@@ -44,11 +44,11 @@ class Llamada
   end
 
   def duracion_en_minutos
-    @duracion.value
+    @duracion.minutes
   end
 
   def duracion
-    self.duracion_en_minutos.value
+    @duracion.value
   end
 
 end

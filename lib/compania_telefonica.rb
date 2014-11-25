@@ -12,8 +12,8 @@ class CompaniaTelefonica
   attr_accessor :facturador_de_llamadas
   attr_accessor :registro_de_llamadas
 
-  def initialize
-    @clientes=[]
+  def initialize(clientes)
+    @clientes= clientes
     @registro_de_llamadas=RegistroDeLlamadas.new
     @facturador_de_llamadas= FacturadorDeLlamadas.new(@registro_de_llamadas)
     @bd= Company.new
@@ -42,7 +42,8 @@ class CompaniaTelefonica
   end
 
   def cliente_de_nombre(nombre)
-    @bd.cliente_de_nombre(nombre).to_cliente
+    client= @bd.cliente_de_nombre(nombre)
+    client.to_cliente
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)

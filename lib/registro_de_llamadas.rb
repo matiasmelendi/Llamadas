@@ -19,7 +19,7 @@ class RegistroDeLlamadas
 
   def llamadas_del_cliente(cliente)
     @bd.llamadas_del_cliente(cliente.nombre).inject([]) { |result,call|
-      result.push(Llamada.new(call.client, @bd.cliente_con_id(call.id_receptor), call.duracion, call.fecha)) }
+      result.push(Llamada.new(call.client.to_cliente, @bd.cliente_con_id(call.id_receptor).to_cliente, call.duracion.to_minutes, call.fecha)) }
   end
 
 
