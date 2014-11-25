@@ -7,6 +7,7 @@ class Client < ActiveRecord::Base
       :database => "/home/memonono/RubymineProjects/llamadas/lib/db/compania_ar_db.db")
 
   has_many :calls
+  has_one :company
 
   ActiveRecord::Schema.define do
     unless ActiveRecord::Base.connection.tables.include? 'clients'

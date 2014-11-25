@@ -2,12 +2,13 @@ require 'active_record'
 require_relative 'client'
 require_relative 'call'
 
-class CompaniaARDB
+class Company
 
   ActiveRecord::Base.establish_connection(
       :adapter  => "sqlite3",
       :database => "/home/memonono/RubymineProjects/llamadas/lib/db/compania_ar_db.db")
 
+  has_many :clients
 
   def agregar_cliente(cliente)
     Client.create(nombre:cliente.nombre, id:cliente.id,
@@ -57,12 +58,11 @@ class CompaniaARDB
   end
 
   def llamadas_del_cliente(nombre)
-     #LlamadasAR.where('emisor_id = ?', [ClienteAR.find_by(nombre: nombre).id])
-    Client.find_by(nombre: nombre).calls
+    cliente_de_nombre(nombre).calls
   end
 
-  def se_realizo_llamada(emisor,receptor,duracion)
-    Call.create(client_id:emisor.id,id_receptor:receptor.id,duracion:duracion.value,fecha:Time.now)
+  def se_realizo_llamada(emisor,receptor,duracion,fecha)
+    Call.create(client_id:emisor.id,id_receptor:receptor.id,duracion:duracion.value,fecha:fecha)
   end
 
   private
