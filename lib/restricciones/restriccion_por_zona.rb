@@ -3,7 +3,7 @@ require_relative 'restriccion_de_facturacion'
 class RestriccionPorZona < RestriccionDeFacturacion
 
   def se_aplica_a(llamada)
-    country_codes.include?(llamada.cod_nacional) && es_llamada_internacional(llamada)
+    country_codes.include?(llamada.cod_area_receptor.cod_nacional) && es_llamada_internacional(llamada)
   end
 
   private
