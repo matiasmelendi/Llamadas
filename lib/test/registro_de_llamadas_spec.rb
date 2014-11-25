@@ -1,47 +1,49 @@
 require 'rspec'
-require '../compania_telefonica'
-require '../cod_area'
-require '../cliente'
-require '../util/numeric'
-require '../util/mes_del_anio'
-require '../linea_telefonica'
-
+require_relative 'model_spec_helper'
 
 describe 'El comportamiento del registro de llamadas' do
 
   before do
-    @compania_telefonica= CompaniaTelefonica.new
-    @compania_telefonica.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),1)
-    @compania_telefonica.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222),2)
-    @cliente_argentino= @compania_telefonica.cliente_de_nombre("Memo")
-    @receptor_europeo= @compania_telefonica.cliente_de_nombre("EuroMemo")
+    @registro= RegistroDeLlamadas.new
+    @compania= CompaniaTelefonica.new
+    @compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),1)
+    @compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222),2)
+    @emisor= @compania.cliente_de_nombre("Memo")
+    @receptor= @compania.cliente_de_nombre("EuroMemo")
+    @calendar= Calendario.new
   end
 
   after do
-    @compania_telefonica.eliminar_clientes
-    @compania_telefonica.eliminar_llamadas
+    @compania.eliminar_clientes
+    @compania.eliminar_llamadas
   end
 
-  context 'Si se realiza una llamada' do
-    it 'Deberia almacenarla' do
-      @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      @compania_telefonica.llamadas.size.should eq(1)
-    end
+  it 'cuando ocurre una nueva llamada, esta queda almacenada en el registro' do
+    @registro.nueva_llamada(@emisor,@receptor,Duration.new(1.to_minutes),@calendar.date_today)
+    @registro.llamadas_del_cliente(@emisor).size.should eq(1)
   end
 
-  context 'Si se desea saber las llamadas de un cliente' do
-    it 'Deberia retornar una lista con las llamadas de ese cliente' do
-      date=Time.now
-      mes_del_anho=MesDelAnio.new(date.year,date.month)
-      @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.llamadas_del_cliente(@cliente_argentino.nombre,mes_del_anho)
-      llamadas.size.should be(1)
+  it 'cuando consulto las llamadas de un cliente que no realizo llamadas debería retornar una lista vacia' do
+    @registro.llamadas_del_cliente(@emisor).should equal?([])
+  end
+
+  context 'Si un cliente realizó una llamada en enero de 2014' do
+
+    before do
+      @calendar.date_today =Date.new(2014,1,1)
+      @registro.nueva_llamada(@emisor,@receptor,Duration.new(1.to_minutes),@calendar.date_today)
     end
 
-    it 'Si no se realizaron llamadas, la lista de llamadas debe ser vacia' do
-      @cliente_argentino.realizar_llamada(10.to_minutes,@receptor_europeo)
-      llamadas=@compania_telefonica.llamadas_del_cliente(@cliente_argentino.nombre,MesDelAnio.octubre(2014))
-      llamadas.size.should be(0)
+    it 'si consultamos las llamadas de ese mes del año, debería estar almacenada' do
+      @registro.llamadas_del_cliente_en_el_mes(@emisor,MesDelAnio.enero(2014)).size.should be(1)
+    end
+
+    it 'si consultamos las llamadas del mes anterior, no debería haber llamadas' do
+      @registro.llamadas_del_cliente_en_el_mes(@emisor,MesDelAnio.diciembre(2013)).should equal?([])
+    end
+
+    it 'si consultamos las llamadas del mes siguiente, no debería haber llamadas' do
+      @registro.llamadas_del_cliente_en_el_mes(@emisor,MesDelAnio.febrero(2014)).should equal?([])
     end
 
   end

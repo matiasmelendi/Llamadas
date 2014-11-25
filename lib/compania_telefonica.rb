@@ -20,7 +20,7 @@ class CompaniaTelefonica
   end
 
   def agregar_cliente(nombre,linea,id)
-    if(existe_el_cliente?(id))
+    if existe_el_cliente?(id)
        self.ya_existe_el_cliente
     end
     @bd.agregar_cliente(Cliente.new(nombre,linea,self,id))
@@ -47,12 +47,7 @@ class CompaniaTelefonica
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)
-
-    llamadas_del_cliente = @bd.llamadas_del_cliente(nombre)
-    llamadas_del_cliente.select{|llamada|
-      llamada.fecha.month.equal?(mes_del_anho.mes) &&
-            llamada.fecha.year.equal?(mes_del_anho.año)
-    }
+    registro_de_llamadas.llamadas_del_cliente_en_el_mes(nombre,mes_del_anho)
   end
 
   def no_existe_el_cliente
@@ -67,8 +62,8 @@ class CompaniaTelefonica
     @facturador_de_llamadas.facturar_mes(mes_del_anho,cliente)
   end
 
-  def cliente_realizo_llamada_a(emisor,receptor,duracion)
-    @bd.se_realizo_llamada(emisor,receptor,duracion)
+  def cliente_realizo_llamada_a(emisor,receptor,duracion,fecha)
+    registro_de_llamadas.nueva_llamada(emisor,receptor,duracion,fecha)
   end
 
   def eliminar_clientes
@@ -76,10 +71,10 @@ class CompaniaTelefonica
   end
 
   def eliminar_llamadas
-    @bd.borrar_llamadas
+    registro_de_llamadas.eliminar_llamadas
   end
 
   def llamadas
-    @bd.llamadas
+    registro_de_llamadas.llamadas
   end
 end
