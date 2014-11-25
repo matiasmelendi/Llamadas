@@ -14,7 +14,7 @@ class Call < ActiveRecord::Base
         table.column :client_id , :integer
         table.column :id_receptor, :integer
         table.column :duracion, :integer
-        table.column :fecha, :date
+        table.column :fecha, :datetime
       end
     end
   end
