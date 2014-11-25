@@ -4,6 +4,12 @@ require '../../compania_telefonica'
 require '../../linea_telefonica'
 require '../../server'
 
+
+  before do
+    Company.new.borrar_clientes
+    Company.new.borrar_llamadas
+  end
+
   describe 'The behaviour of clientes home page' do
 
     def app
