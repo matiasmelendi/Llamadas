@@ -1,7 +1,6 @@
 require_relative 'dummy_initialize'
-#require 'app/js/controllers.js'
 require 'sinatra'
-require 'json'
+require_relative 'exceptions/no_existe_el_cliente_exception'
 
 dummy= DummyInitialize.new
 
@@ -23,13 +22,14 @@ get '/seccion_facturaciones' do
   erb :home_facturaciones
 end
 
+
 get '/seccion_facturaciones/facturar/' do
 
   begin
     @date= Date.today
     anho= @date.year
     @mes_del_anho= dummy.mes_del_anho_actual
-    @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
+    @cliente= dummy.compania.cliente_con_id(params[:id].to_i).to_cliente
     @compania= dummy.compania
     @factura= dummy.compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@cliente)
     erb :factura_emitida
@@ -45,12 +45,21 @@ get '/seccion_clientes' do
 end
 
 get '/seccion_clientes/buscar_cliente/' do
-
+  @compania= dummy.compania
+  @mes_del_anho= dummy.mes_del_anho_actual
   begin
-    @mes_del_anho= dummy.mes_del_anho_actual
-    @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
-    @compania= dummy.compania
+    @cliente= dummy.compania.cliente_con_id(params[:id].to_i).to_cliente
+    erb :datos_del_cliente
+  rescue NoExisteElClienteException
+    redirect '/error_404'
+  end
+end
 
+get '/seccion_clientes/buscar_cliente_por_nombre/' do
+  @compania= dummy.compania
+  @mes_del_anho= dummy.mes_del_anho_actual
+  begin
+    @cliente= dummy.compania.cliente_de_nombre(params[:nombre])
     erb :datos_del_cliente
   rescue NoExisteElClienteException
     redirect '/error_404'
