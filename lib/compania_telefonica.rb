@@ -4,7 +4,7 @@ require_relative 'cliente'
 require_relative 'util/mes_del_anio'
 require_relative 'exceptions/ya_existe_el_cliente_exception'
 require_relative 'exceptions/no_existe_el_cliente_exception'
-require_relative 'db/compania_ardb'
+require_relative 'db/company'
 
 class CompaniaTelefonica
 
@@ -16,7 +16,7 @@ class CompaniaTelefonica
     @clientes=[]
     @registro_de_llamadas=RegistroDeLlamadas.new
     @facturador_de_llamadas= FacturadorDeLlamadas.new(@registro_de_llamadas)
-    @bd= CompaniaARDB.new
+    @bd= Company.new
   end
 
   def agregar_cliente(nombre,linea,id)
@@ -31,7 +31,7 @@ class CompaniaTelefonica
   end
 
   def borrar_cliente(id)
-    if(!existe_el_cliente?(id))
+    if not existe_el_cliente?(id)
       self.no_existe_el_cliente
     end
     @bd.eliminar_cliente(id)
@@ -42,8 +42,7 @@ class CompaniaTelefonica
   end
 
   def cliente_de_nombre(nombre)
-    cliente=@bd.cliente_de_nombre(nombre)
-    Cliente.new(cliente.nombre,LineaTelefonica.new(CodArea.new(cliente.cod_l,cliente.cod_n),cliente.numero),self,cliente.id)
+    @bd.cliente_de_nombre(nombre).to_cliente
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)

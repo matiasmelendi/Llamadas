@@ -2,13 +2,22 @@ require 'active_record'
 require_relative 'client'
 require_relative 'call'
 
-class Company
+class Company < ActiveRecord::Base
 
   ActiveRecord::Base.establish_connection(
       :adapter  => "sqlite3",
       :database => "/home/memonono/RubymineProjects/llamadas/lib/db/compania_ar_db.db")
 
   has_many :clients
+
+  ActiveRecord::Schema.define do
+    unless ActiveRecord::Base.connection.tables.include? 'companies'
+
+      create_table :companies do |table|
+        table.column :client_id, :integer
+      end
+    end
+  end
 
   def agregar_cliente(cliente)
     Client.create(nombre:cliente.nombre, id:cliente.id,

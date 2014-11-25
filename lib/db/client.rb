@@ -21,5 +21,8 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def to_cliente
+    Cliente.new(nombre,LineaTelefonica.new(CodArea.new(cod_l,cod_n),numero),company,id)
+  end
 
 end

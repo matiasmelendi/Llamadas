@@ -1,12 +1,12 @@
 require_relative 'llamada'
 require_relative 'factura'
 require_relative 'restricciones/restriccion_de_facturacion'
-require_relative 'db/compania_ardb'
+require_relative 'db/company'
 
 class RegistroDeLlamadas
 
   def initialize
-    @bd= CompaniaARDB.new
+    @bd= Company.new
   end
 
   def nueva_llamada(emisor,receptor,duracion,fecha)
@@ -14,8 +14,7 @@ class RegistroDeLlamadas
   end
 
   def llamadas_del_cliente_en_el_mes(cliente,mes_del_anho)
-   result= llamadas_del_cliente(cliente).select{ |llamada| se_realizo_en?(llamada,mes_del_anho)}
-    result
+   llamadas_del_cliente(cliente).select{ |llamada| se_realizo_en?(llamada,mes_del_anho)}
   end
 
   def llamadas_del_cliente(cliente)
