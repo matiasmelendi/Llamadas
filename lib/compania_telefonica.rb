@@ -14,9 +14,13 @@ class CompaniaTelefonica
 
   def initialize(clientes)
     @clientes= clientes
-    @registro_de_llamadas=RegistroDeLlamadas.new
+    @registro_de_llamadas= RegistroDeLlamadas.new
     @facturador_de_llamadas= FacturadorDeLlamadas.new(@registro_de_llamadas)
     @bd= Company.new
+  end
+
+  def clientes
+    @bd.clientes
   end
 
   def agregar_cliente(nombre,linea,id)
@@ -38,12 +42,11 @@ class CompaniaTelefonica
   end
 
   def cliente_con_id(id)
-    @bd.cliente_con_id(id)
+    @bd.cliente_con_id(id).to_cliente
   end
 
   def cliente_de_nombre(nombre)
-    client= @bd.cliente_de_nombre(nombre)
-    client.to_cliente
+    @bd.cliente_de_nombre(nombre).to_cliente
   end
 
   def llamadas_del_cliente(nombre,mes_del_anho)
