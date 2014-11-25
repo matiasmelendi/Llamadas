@@ -41,6 +41,10 @@ class CompaniaTelefonica
     @bd.eliminar_cliente(id)
   end
 
+  def borrar_cliente_de_nombre(nombre)
+    @bd.eliminar_cliente_de_nombre(nombre)
+  end
+
   def cliente_con_id(id)
     @bd.cliente_con_id(id).to_cliente
   end

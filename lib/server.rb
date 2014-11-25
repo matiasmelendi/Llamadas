@@ -76,6 +76,16 @@ post '/seccion_clientes/borrar_cliente/' do
   end
 end
 
+post '/seccion_clientes/borrar_cliente_por_nombre/' do
+  begin
+    @clientes= dummy.clientes
+    dummy.compania.borrar_cliente_de_nombre(params[:nombre])
+    erb :lista_de_clientes
+  rescue NoExisteElClienteException
+    redirect '/error_404'
+  end
+end
+
 get '/seccion_clientes/lista_de_clientes' do
   @clientes= dummy.clientes
   erb :lista_de_clientes
