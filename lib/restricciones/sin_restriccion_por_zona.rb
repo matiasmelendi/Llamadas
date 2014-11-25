@@ -6,7 +6,7 @@ class SinRestriccionPorZona < RestriccionPorZona
   end
 
   def country_codes
-    []
+    [1001,1002,1003,1004]
   end
 
 end
