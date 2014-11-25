@@ -29,7 +29,7 @@ get '/seccion_facturaciones/facturar/' do
     @date= Date.today
     anho= @date.year
     @mes_del_anho= dummy.mes_del_anho_actual
-    @cliente= dummy.compania.cliente_con_id(params[:id].to_i).to_cliente
+    @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
     @compania= dummy.compania
     @factura= dummy.compania.facturar_mes( MesDelAnio.new(anho,params[:mes]),@cliente)
     erb :factura_emitida
@@ -48,7 +48,7 @@ get '/seccion_clientes/buscar_cliente/' do
   @compania= dummy.compania
   @mes_del_anho= dummy.mes_del_anho_actual
   begin
-    @cliente= dummy.compania.cliente_con_id(params[:id].to_i).to_cliente
+    @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
     erb :datos_del_cliente
   rescue NoExisteElClienteException
     redirect '/error_404'
