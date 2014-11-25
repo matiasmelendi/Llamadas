@@ -28,7 +28,7 @@ class Cents < Money
   end
 
   def to_pesos
-    (self.value/(100.0)).to_pesos
+    (self.value/100.0).to_pesos
   end
 
 end

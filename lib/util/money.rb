@@ -2,15 +2,8 @@ class Money
   attr_reader :value
 
   def initialize(value)
-    self.validate(value)
+    validate(value)
     @value=value
-  end
-
-
-  def validate(value)
-    if value < 0
-      raise MontoInvalidoException.new
-    end
   end
 
   def +(another_money)
@@ -37,4 +30,10 @@ class Money
     #SubclassResponsability
   end
 
+  private
+  def validate(value)
+    if value < 0
+      raise MontoInvalidoException.new
+    end
+  end
 end

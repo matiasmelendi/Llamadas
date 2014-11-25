@@ -1,9 +1,13 @@
 class Duration
 
-  attr_reader :value
+  attr_reader :minutes
 
   def initialize(minutes)
-    @value=minutes.value
+    @minutes=minutes
+  end
+
+  def value
+    @minutes.value
   end
 
 end

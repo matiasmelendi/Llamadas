@@ -13,8 +13,8 @@ class Peso < Money
     (self.value + another_peso.value).to_pesos
   end
 
-  def sum_with_cents(a_cents)
-    (a_cents + self.to_cents).to_pesos
+  def sum_with_cents(cents)
+    (cents + self.to_cents).to_pesos
   end
 
   def to_pesos
