@@ -4,6 +4,10 @@ require '../../compania_telefonica'
 require '../../linea_telefonica'
 require '../../server'
 
+    before do
+      Company.new.borrar_clientes
+      Company.new.borrar_llamadas
+    end
 
     def app
       Sinatra::Application
@@ -13,7 +17,6 @@ require '../../server'
 
       it 'Shouldn´t be ok, it would redirect to an 404 error page, because blah' do
         get '/seccion_clientes/buscar_cliente/'
-
         expect(last_response).to_not be_ok
       end
 
