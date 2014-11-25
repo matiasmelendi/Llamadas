@@ -2,6 +2,7 @@ require_relative 'llamada'
 require_relative 'factura'
 require_relative 'restricciones/restriccion_de_facturacion'
 require_relative 'db/company'
+require_relative 'util/duration'
 
 class RegistroDeLlamadas
 
@@ -19,7 +20,7 @@ class RegistroDeLlamadas
 
   def llamadas_del_cliente(cliente)
     @bd.llamadas_del_cliente(cliente.nombre).inject([]) { |result,call|
-      result.push(Llamada.new(call.client.to_cliente, @bd.cliente_con_id(call.id_receptor).to_cliente, call.duracion.to_minutes, call.fecha)) }
+      result.push(Llamada.new(call.client.to_cliente, @bd.cliente_con_id(call.id_receptor).to_cliente, Duration.new(call.duracion.to_minutes), call.fecha)) }
   end
 
 
