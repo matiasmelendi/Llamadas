@@ -5,7 +5,7 @@ describe 'El comportamiento del registro de llamadas' do
 
   before do
     @registro= RegistroDeLlamadas.new
-    @compania= CompaniaTelefonica.new
+    @compania= CompaniaTelefonica.new([])
     @compania.agregar_cliente("Memo",LineaTelefonica.new(CodArea.new(120,54),1511111111),1)
     @compania.agregar_cliente("EuroMemo",LineaTelefonica.new(CodArea.new(1,101),1522222222),2)
     @emisor= @compania.cliente_de_nombre("Memo")
