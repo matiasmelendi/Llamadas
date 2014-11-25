@@ -4,6 +4,14 @@ require_relative 'exceptions/no_existe_el_cliente_exception'
 
 dummy= DummyInitialize.new
 
+def operar_sobre_cliente(accion)
+  begin
+   accion[]
+  rescue NoExisteElClienteException
+    redirect '/error_404'
+  end
+end
+
 not_found do
   status 404
   erb :error_404
@@ -21,7 +29,6 @@ get '/seccion_facturaciones' do
   @meses_corrientes= dummy.meses_corrientes
   erb :home_facturaciones
 end
-
 
 get '/seccion_facturaciones/facturar/' do
 
@@ -47,43 +54,35 @@ end
 get '/seccion_clientes/buscar_cliente/' do
   @compania= dummy.compania
   @mes_del_anho= dummy.mes_del_anho_actual
-  begin
-    @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
-    erb :datos_del_cliente
-  rescue NoExisteElClienteException
-    redirect '/error_404'
-  end
+  operar_sobre_cliente(lambda{
+                         @cliente= dummy.compania.cliente_con_id(params[:id].to_i)
+                         erb :datos_del_cliente
+                       })
 end
 
 get '/seccion_clientes/buscar_cliente_por_nombre/' do
   @compania= dummy.compania
   @mes_del_anho= dummy.mes_del_anho_actual
-  begin
-    @cliente= dummy.compania.cliente_de_nombre(params[:nombre])
-    erb :datos_del_cliente
-  rescue NoExisteElClienteException
-    redirect '/error_404'
-  end
+  operar_sobre_cliente(lambda{
+                         @cliente= dummy.compania.cliente_de_nombre(params[:nombre])
+                         erb :datos_del_cliente
+                       })
 end
 
 post '/seccion_clientes/borrar_cliente/' do
-  begin
-    @clientes= dummy.clientes
-    dummy.compania.borrar_cliente(params[:id].to_i)
-    erb :lista_de_clientes
-  rescue NoExisteElClienteException
-    redirect '/error_404'
-  end
+  operar_sobre_cliente(lambda{
+                         @clientes= dummy.clientes
+                         dummy.compania.borrar_cliente(params[:id].to_i)
+                         erb :lista_de_clientes
+                       })
 end
 
 post '/seccion_clientes/borrar_cliente_por_nombre/' do
-  begin
-    @clientes= dummy.clientes
-    dummy.compania.borrar_cliente_de_nombre(params[:nombre])
-    erb :lista_de_clientes
-  rescue NoExisteElClienteException
-    redirect '/error_404'
-  end
+  operar_sobre_cliente(lambda{
+                         @clientes= dummy.clientes
+                         dummy.compania.borrar_cliente_de_nombre(params[:nombre])
+                         erb :lista_de_clientes
+                       })
 end
 
 get '/seccion_clientes/lista_de_clientes' do
