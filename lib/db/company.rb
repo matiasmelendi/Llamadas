@@ -13,16 +13,20 @@ class Company < ActiveRecord::Base
   ActiveRecord::Schema.define do
     unless ActiveRecord::Base.connection.tables.include? 'companies'
 
-      create_table :companies do |table|
-        table.column :client_id, :integer
+      create_table :companies do
+
       end
     end
   end
 
+  def to_compania_telefonica
+    CompaniaTelefonica.new(clients)
+  end
+
   def agregar_cliente(cliente)
-    Client.create(nombre:cliente.nombre, id:cliente.id,
+    self.clients<<(Client.create(nombre:cliente.nombre, id:cliente.id,
                      numero:cliente.numero,cod_l:cliente.cod_area.cod_local,
-                     cod_n:cliente.cod_area.cod_nacional)
+                     cod_n:cliente.cod_area.cod_nacional))
   end
 
   def clientes
