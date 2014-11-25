@@ -1,4 +1,5 @@
 require_relative 'call'
+require_relative 'company'
 
 class Client < ActiveRecord::Base
 
@@ -7,7 +8,7 @@ class Client < ActiveRecord::Base
       :database => "/home/memonono/RubymineProjects/llamadas/lib/db/compania_ar_db.db")
 
   has_many :calls
-  has_one :company
+  belongs_to :company
 
   ActiveRecord::Schema.define do
     unless ActiveRecord::Base.connection.tables.include? 'clients'
@@ -22,7 +23,7 @@ class Client < ActiveRecord::Base
   end
 
   def to_cliente
-    Cliente.new(nombre,LineaTelefonica.new(CodArea.new(cod_l,cod_n),numero),company,id)
+    Cliente.new(nombre,LineaTelefonica.new(CodArea.new(cod_l,cod_n),numero),CompaniaTelefonica.new(Company.new.clientes),id)
   end
 
 end
