@@ -30,12 +30,12 @@
 
             <h1 align="center"> Sección clientes </h1>
 
-            <!--panel izquierdo-->
+            <!--buscar cliente por nombre-->
             <div>
                 <div class="panel panel-success">
                     <div class="panel-heading">Buscar cliente</div>
                     <div class="panel-body">
-                        <form action="/seccion_clientes/buscar_cliente/" method="get">
+                        <form action="/seccion_clientes/buscar_cliente_por_nombre/" method="get">
                             <input type="text" name="nombre" placeholder="Ingrese un nombre" required/>
                             <input type="submit" class="btn btn-success" value="Buscar cliente" />
                         </form>
@@ -43,6 +43,7 @@
                 </div>
             </div>
 
+            <!--lista de clientes-->
             <div >
                 <div class="panel panel-success">
                     <div class="panel-heading"> Todos los clientes </div>
@@ -53,7 +54,7 @@
             </div>
 
 
-            <!--panel derecho-->
+            <!--borrar cliente-->
             <div>
                 <div class="panel panel-success">
                     <div class="panel-heading">Borrar un cliente</div>
@@ -67,7 +68,7 @@
             </div>
 
 
-            <!--panel centro-->
+            <!--crear cliente-->
             <div >
                 <div class="panel panel-success ">
                     <div class="panel-heading ">Crear cliente</div>
